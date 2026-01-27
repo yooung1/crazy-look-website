@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estilo Sob Medida | Ateliê de Alta Costura</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .fade-in { animation: fadeIn 1.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-[#FDFCFB] text-stone-800">
+
+    <header class="relative h-[90vh] flex items-center justify-center overflow-hidden border-b border-stone-200">
+        <div class="absolute inset-0 z-0">
+            <img id="hero-img" src="https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=2000" 
+                 alt="Background Costura" class="w-full h-full object-cover grayscale opacity-20">
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl fade-in">
+            <span class="uppercase tracking-[0.3em] text-sm text-stone-500 mb-4 block">Excelência em Alfaiataria</span>
+            <h1 class="text-5xl md:text-7xl font-bold text-stone-900 mb-6 font-serif">Estilo Sob Medida</h1>
+            <p class="text-xl md:text-2xl font-light italic text-stone-600 mb-10">
+                Onde cada ponto conta uma história de elegância e precisão.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                
+                <button onclick="irParaWhatsApp()" 
+                        class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl font-sans">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    <span class="font-semibold uppercase tracking-wider text-sm">Solicitar Orçamento</span>
+                </button>
+
+                <a href="produtos.html" 
+                class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl font-sans">
+                    <i class="fas fa-shopping-bag text-xl"></i>
+                    <span class="font-semibold uppercase tracking-wider text-sm">Veja Nossos Produtos</span>
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
+            <h2 class="text-4xl font-bold font-serif mb-2">Nossas Criações</h2>
+            <p class="text-stone-500 italic">Um olhar sobre a precisão dos nossos cortes e a qualidade dos tecidos.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[300px]">
+                
+                <div class="md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden relative group shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1594932224828-b4b059b6f6ee?q=80&w=800" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                         alt="Terno Completo">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500"></div>
+                </div>
+
+                <div class="md:col-span-2 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                         alt="Araras de Roupas">
+                </div>
+
+                <div class="md:col-span-1 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1598440467723-241797cfdb64?q=80&w=800" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                         alt="Detalhe Camisa">
+                </div>
+
+                <div class="md:col-span-1 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=800" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                         alt="Costura Detalhe">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-stone-50 px-6 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1591343395902-1adcb454c2e4?q=80&w=1000" 
+                     alt="Sobre o ateliê" class="rounded-2xl shadow-xl w-full h-[500px] object-cover">
+                <div class="absolute -bottom-6 -right-6 bg-orange-600 text-white p-8 rounded-2xl shadow-2xl text-center hidden md:block">
+                    <span class="text-4xl font-bold block">20+</span>
+                    <span class="text-sm uppercase tracking-widest font-semibold">Anos de Experiência</span>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <span class="text-orange-600 font-semibold uppercase tracking-widest text-xs">Tradição e qualidade em cada ponto</span>
+                <h2 class="text-5xl font-bold text-stone-900 font-serif">Sobre Nós</h2>
+                <p class="text-stone-600 text-lg leading-relaxed">
+                    Com mais de duas décadas de experiência, o nosso atelier combina técnicas tradicionais de alfaiataria com tendências modernas. Cada peça é tratada com o máximo cuidado e atenção aos detalhes.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-4 pt-4">
+                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
+                        <div class="text-orange-600 text-2xl"><i class="far fa-clock"></i></div>
+                        <div><h4 class="font-bold text-stone-800">20+ Anos</h4><p class="text-xs text-stone-500 uppercase">experiência</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
+                        <div class="text-orange-600 text-2xl"><i class="fas fa-users"></i></div>
+                        <div><h4 class="font-bold text-stone-800">5000+</h4><p class="text-xs text-stone-500 uppercase">clientes</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
+                        <div class="text-orange-600 text-2xl"><i class="fas fa-award"></i></div>
+                        <div><h4 class="font-bold text-stone-800">Premium</h4><p class="text-xs text-stone-500 uppercase">qualidade</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
+                        <div class="text-orange-600 text-2xl"><i class="fas fa-heart"></i></div>
+                        <div><h4 class="font-bold text-stone-800">Feito à Mão</h4><p class="text-xs text-stone-500 uppercase">com amor</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white px-6">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <span class="text-orange-600 font-semibold uppercase tracking-widest text-xs">O que fazemos</span>
+            <h2 class="text-5xl font-bold text-stone-900 mt-2 font-serif">Os Nossos Serviços</h2>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-cut"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Ajustes & Reparos</h3>
+                <p class="text-stone-500 mb-6 text-sm">Bainhas, apertos, consertos de zíperes e muito mais reformas em geral.</p>
+                <span class="text-orange-600 font-bold block">A partir de R$ 50</span>
+            </div>
+
+            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-ruler-combined"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Confecção Sob Medida</h3>
+                <p class="text-stone-500 mb-6 text-sm">Peças exclusivas desenhadas e feitas especialmente para o seu corpo.</p>
+                <span class="text-orange-600 font-bold block">A partir de R$ 450</span>
+            </div>
+
+            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Alfaiataria</h3>
+                <p class="text-stone-500 mb-6 text-sm">Costumes, blazers e calças sociais com caimento impecável e clássico.</p>
+                <span class="text-orange-600 font-bold block">A partir de R$ 800</span>
+            </div>
+
+            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Vestidos de Noiva</h3>
+                <p class="text-stone-500 mb-6 text-sm">Ajustes delicados e customizações para o seu grande dia especial.</p>
+                <span class="text-orange-600 font-bold block">Sob consulta</span>
+            </div>
+
+            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Customização</h3>
+                <p class="text-stone-500 mb-6 text-sm">Transforme peças antigas em novos modelos modernos e exclusivos.</p>
+                <span class="text-orange-600 font-bold block">A partir de R$ 120</span>
+            </div>
+
+            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-pen-nib"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Bordados</h3>
+                <p class="text-stone-500 mb-6 text-sm">Bordados personalizados e monogramas em camisas ou enxovais.</p>
+                <span class="text-orange-600 font-bold block">A partir de R$ 40</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center border-t border-stone-200">
+        <div>
+            <h2 class="text-4xl font-bold mb-8 pb-4 border-b border-stone-200 font-serif">Visite nosso Ateliê</h2>
+            <div class="space-y-8">
+                <div class="flex items-start gap-5 text-stone-600">
+                    <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center text-emerald-800 shrink-0">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-stone-800">Endereço</h3>
+                        <p>Rua Miguel Rachid, 834 - Vila Paranagua<br>São Paulo - SP, 03808-130</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-5 text-stone-600">
+                    <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center text-emerald-800 shrink-0">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-stone-800">Horário de Funcionamento</h3>
+                        <p>Segunda a Sexta: 09h às 18h<br>Sábados: 09h às 13h</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-96 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 group">
+            <iframe 
+                src="https://www.google.com/maps?q=Rua+Miguel+Rachid,+834+-+Vila+Paranagua,+São+Paulo+-+SP,+03808-130&output=embed" 
+                class="w-full h-full border-0 grayscale group-hover:grayscale-0 transition-all duration-700" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <section class="py-24 bg-stone-100 px-6">
+        <div class="max-w-3xl mx-auto bg-white p-12 rounded-[2rem] shadow-sm border border-stone-200">
+            <h2 class="text-4xl font-bold mb-8 text-center font-serif">Fale Conosco</h2>
+            <form class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" placeholder="Seu Nome" required class="w-full bg-stone-50 border-stone-200 border rounded-xl p-4 focus:outline-none focus:border-emerald-700 transition-all">
+                    <input type="email" placeholder="Seu E-mail" required class="w-full bg-stone-50 border-stone-200 border rounded-xl p-4 focus:outline-none focus:border-emerald-700 transition-all">
+                </div>
+                <textarea rows="4" placeholder="Como podemos ajudar?" required class="w-full bg-stone-50 border-stone-200 border rounded-xl p-4 focus:outline-none focus:border-emerald-700 transition-all"></textarea>
+                <button type="submit" class="w-full bg-stone-900 text-white py-5 rounded-xl font-bold uppercase tracking-widest hover:bg-stone-800 transition-all">
+                    Enviar Mensagem
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-stone-400 border-t border-stone-200">
+        <div class="flex justify-center gap-8 mb-8 text-2xl">
+            <a href="#" class="hover:text-emerald-800 transition-colors"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-emerald-800 transition-colors"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <p class="text-sm tracking-widest uppercase">© 2026 Estilo Sob Medida Ateliê</p>
+    </footer>
+
+    <button onclick="irParaWhatsApp()" 
+            class="fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl hover:bg-emerald-600 transition-all flex items-center justify-center z-50 hover:scale-110 active:scale-95 animate-bounce">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </button>
+
+    <script>
+        function irParaWhatsApp() {
+            const fone = "5511999999999";
+            const texto = encodeURIComponent("Olá! Gostaria de um orçamento.");
+            window.open(`https://wa.me/${fone}?text=${texto}`, '_blank');
+        }
+    </script>
+</body>
+</html>
