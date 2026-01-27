@@ -26,6 +26,13 @@
 </head>
 <body class="bg-[#FDFCFB] text-stone-800">
 
+    <nav class="absolute top-0 left-0 w-full z-50 px-6 py-6 flex justify-end">
+        <a href="login.html" class="bg-white/90 backdrop-blur-sm text-stone-800 px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:bg-orange-600 hover:text-white transition-all duration-300 flex items-center gap-2 border border-stone-200">
+            <i class="far fa-user-circle text-lg"></i>
+            Login
+        </a>
+    </nav>
+
     <header class="relative h-[90vh] flex items-center justify-center overflow-hidden border-b border-stone-200">
         <div class="absolute inset-0 z-0">
             <img id="hero-img" src="images/main_image.jpg" 
@@ -40,7 +47,6 @@
             </p>
             
             <div class="flex flex-col md:flex-row gap-6 justify-center">
-                
                 <button onclick="irParaWhatsApp()" 
                         class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl font-sans justify-center">
                     <i class="fab fa-whatsapp text-xl"></i>
@@ -48,11 +54,10 @@
                 </button>
 
                 <a href="produtos.html" 
-                class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl font-sans justify-center">
+                class="bg-orange-600 hover:bg-orange-50 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl font-sans justify-center">
                     <i class="fas fa-shopping-bag text-xl"></i>
                     <span class="font-semibold uppercase tracking-wider text-sm">Conheça Nossos Produtos</span>
                 </a>
-
             </div>
         </div>
     </header>
@@ -65,32 +70,19 @@
 
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[300px]">
-                
                 <div class="md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="images/terno_completo.jpg" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                         alt="Terno Completo">
+                    <img src="images/terno_completo.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Terno Completo">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500"></div>
                 </div>
-
                 <div class="md:col-span-2 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                         alt="Araras de Roupas">
+                    <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Araras de Roupas">
                 </div>
-
                 <div class="md:col-span-1 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="images/jeans.jpg" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                         alt="Detalhe Camisa">
+                    <img src="images/jeans.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Detalhe Camisa">
                 </div>
-
                 <div class="md:col-span-1 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="images/terno_verde.png" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                         alt="Costura Detalhe">
+                    <img src="images/terno_verde.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Costura Detalhe">
                 </div>
-
             </div>
         </div>
     </section>
@@ -98,8 +90,7 @@
     <section class="py-20 bg-stone-50 px-6 border-t border-stone-200">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div class="relative">
-                <img src="images/atelier.jpg" 
-                     alt="Sobre o ateliê" class="rounded-2xl shadow-xl w-full h-[500px] object-cover">
+                <img src="images/atelier.jpg" alt="Sobre o ateliê" class="rounded-2xl shadow-xl w-full h-[500px] object-cover">
                 <div class="absolute -bottom-6 -right-6 bg-orange-600 text-white p-8 rounded-2xl shadow-2xl text-center hidden md:block">
                     <span class="text-4xl font-bold block">20+</span>
                     <span class="text-sm uppercase tracking-widest font-semibold">Anos de Experiência</span>
@@ -111,7 +102,6 @@
                 <p class="text-stone-600 text-lg leading-relaxed">
                     Com mais de duas décadas de experiência, o nosso atelier combina técnicas tradicionais de alfaiataria com tendências modernas. Cada peça é tratada com o máximo cuidado e atenção aos detalhes.
                 </p>
-                
                 <div class="grid grid-cols-2 gap-4 pt-4">
                     <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
                         <div class="text-orange-600 text-2xl"><i class="far fa-clock"></i></div>
@@ -119,7 +109,7 @@
                     </div>
                     <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
                         <div class="text-orange-600 text-2xl"><i class="fas fa-users"></i></div>
-                        <div><h4 class="font-bold text-stone-800">Sempre no prazo+</h4></div>
+                        <div><h4 class="font-bold text-stone-800">Sempre no prazo</h4></div>
                     </div>
                     <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
                         <div class="text-orange-600 text-2xl"><i class="fas fa-award"></i></div>
@@ -148,7 +138,6 @@
                 <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Ajustes & Reparos</h3>
                 <p class="text-stone-500 mb-6 text-sm">Bainhas, apertos, consertos de zíperes e muito mais reformas em geral.</p>
             </div>
-
             <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
                 <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
                     <i class="fas fa-ruler-combined"></i>
@@ -156,7 +145,6 @@
                 <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Confecção Sob Medida</h3>
                 <p class="text-stone-500 mb-6 text-sm">Peças exclusivas desenhadas e feitas especialmente para o seu corpo.</p>
             </div>
-
             <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
                 <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
                     <i class="fas fa-user-tie"></i>
@@ -164,7 +152,6 @@
                 <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Alfaiataria</h3>
                 <p class="text-stone-500 mb-6 text-sm">Costumes, blazers e calças sociais com caimento impecável e clássico.</p>
             </div>
-
             <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
                 <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
                     <i class="fas fa-gem"></i>
@@ -173,7 +160,6 @@
                 <p class="text-stone-500 mb-6 text-sm">Ajustes delicados e customizações para o seu grande dia especial.</p>
                 <span class="text-orange-600 font-bold block">Sob consulta</span>
             </div>
-
             <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
                 <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
                     <i class="fas fa-magic"></i>
@@ -181,7 +167,6 @@
                 <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Customização</h3>
                 <p class="text-stone-500 mb-6 text-sm">Transforme peças antigas em novos modelos modernos e exclusivos.</p>
             </div>
-
             <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
                 <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
                     <i class="fas fa-pen-nib"></i>
@@ -218,35 +203,21 @@
         </div>
         <div class="h-96 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 group">
             <iframe 
-                src="https://www.google.com/maps?q=Rua+Miguel+Rachid,+834+-+Vila+Paranagua,+São+Paulo+-+SP,+03808-130&output=embed" 
-                class="w-full h-full border-0 grayscale group-hover:grayscale-0 transition-all duration-700" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.186642055627!2d-46.47530432386829!3d-23.507722759885885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce602008bc09b1%3A0x68b97f005f69978d!2sR.%20Miguel%20Rachid%2C%20834%20-%20Vila%20Paranagua%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003808-130!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                class="w-full h-full border-0" 
                 allowfullscreen="" loading="lazy">
             </iframe>
         </div>
     </section>
 
-    <section class="py-24 bg-stone-100 px-6">
-        <div class="max-w-3xl mx-auto bg-white p-12 rounded-[2rem] shadow-sm border border-stone-200">
-            <h2 class="text-4xl font-bold mb-8 text-center font-serif">Fale Conosco</h2>
-            <form class="space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" placeholder="Seu Nome" required class="w-full bg-stone-50 border-stone-200 border rounded-xl p-4 focus:outline-none focus:border-emerald-700 transition-all">
-                    <input type="email" placeholder="Seu E-mail" required class="w-full bg-stone-50 border-stone-200 border rounded-xl p-4 focus:outline-none focus:border-emerald-700 transition-all">
-                </div>
-                <textarea rows="4" placeholder="Como podemos ajudar?" required class="w-full bg-stone-50 border-stone-200 border rounded-xl p-4 focus:outline-none focus:border-emerald-700 transition-all"></textarea>
-                <button type="submit" class="w-full bg-stone-900 text-white py-5 rounded-xl font-bold uppercase tracking-widest hover:bg-stone-800 transition-all">
-                    Enviar Mensagem
-                </button>
-            </form>
-        </div>
-    </section>
+
 
     <footer class="py-12 text-center text-stone-400 border-t border-stone-200">
         <div class="flex justify-center gap-8 mb-8 text-2xl">
-            <a href="https://www.instagram.com/crazylookhaitian" class="hover:text-emerald-800 transition-colors"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/crazylookhaitian" class="hover:text-orange-600 transition-colors"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="text-sm tracking-widest uppercase">
-    ©       <span id="year"></span> Estilo Sob Medida Ateliê
+        <p class="text-sm tracking-widest uppercase font-sans">
+            © <span id="year"></span> Crazy Look Ateliê
         </p>
     </footer>
 
@@ -256,11 +227,17 @@
     </button>
 
     <script>
-        function irParaWhatsApp() {
-            const fone = "5511949113032";
-            const texto = encodeURIComponent("Olá! Gostaria de um orçamento.");
-            window.open(`https://wa.me/${fone}?text=${texto}`, '_blank');
-        }
-    </script>
+    // Ano Dinâmico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function irParaWhatsApp() {
+        // Tenta pegar do banco (localStorage), se não tiver, usa o padrão
+        const savedPhone = localStorage.getItem('whatsapp_number');
+        const fone = savedPhone ? savedPhone : "5511949113032"; 
+        
+        const texto = encodeURIComponent("Olá! Gostaria de um orçamento.");
+        window.open(`https://wa.me/${fone}?text=${texto}`, '_blank');
+    }
+</script>
 </body>
 </html>
