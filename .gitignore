@@ -1,0 +1,13 @@
+# Python - Arquivos de cache compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Banco de Dados Local (SQLite)
+crazy_look.db
+.db
+
+# Ambientes Virtuais (Caso não use apenas o gerenciamento do uv)
+.venv/
+env/
+venv/
