@@ -1,243 +1,338 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crazy Look | Ateliê de Alta Costura</title>
-
-    <link rel="icon" href="images/alfaiate_favicon.png">
-
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrazyLook Haitian - Moda & Alfaiataria</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="shortcut icon" href="images/alfaiate_favicon.png" type="image/png">
+  
+  <style>
+    /* Estilos Gerais */
+    :root {
+      --bg-principal: #FDFCFB;
+      --cor-destaque: #d97706; 
+      --texto-escuro: #1c1917; 
+      --texto-suave: #57534e; 
+      --borda: #e7e5e4; 
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-principal); color: var(--texto-suave); padding-top: 72px; }
+    h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; color: var(--texto-escuro); }
+    @media(min-width:1024px) { body { padding-top: 0; padding-left: 256px; } }
+    .nav-link:hover { background: rgba(217, 119, 6, 0.1); color: var(--cor-destaque); transform: translateX(8px); }
+    .product-card { background: white; border: 1px solid var(--borda); transition: all 0.3s ease; }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); border-color: var(--cor-destaque); }
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
-        
-        .fade-in { animation: fadeIn 1.5s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    /* Scroll do Modal */
+    .modal-scroll::-webkit-scrollbar { width: 8px; }
+    .modal-scroll::-webkit-scrollbar-thumb { background-color: #d6d3d1; border-radius: 4px; }
+  </style>
 </head>
-<body class="bg-[#FDFCFB] text-stone-800">
+<body>
 
-    <nav class="absolute top-0 left-0 w-full z-50 px-6 py-6 flex justify-end">
-        <a href="login.html" class="bg-white/90 backdrop-blur-sm text-stone-800 px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:bg-orange-600 hover:text-white transition-all duration-300 flex items-center gap-2 border border-stone-200">
-            <i class="far fa-user-circle text-lg"></i>
-            Login
-        </a>
-    </nav>
+  <nav class="fixed top-0 left-0 h-full bg-stone-900 text-white w-64 p-6 hidden lg:flex flex-col z-50 shadow-2xl">
+    <div class="mb-10"><h2 class="text-3xl font-serif font-bold text-white">CrazyLook</h2><p class="text-xs text-stone-400 uppercase tracking-widest mt-1">Haitian • Ateliê</p></div>
+    <ul class="flex flex-col gap-2 text-lg flex-1 overflow-y-auto">
+      <li><a href="#home" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-home w-6"></i>Home</a></li>
+      <li><a href="#sobre" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-store w-6"></i>Sobre Nós</a></li>
+      <li><a href="#feminino" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-female w-6"></i>Feminino</a></li>
+      <li><a href="#masculino" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-male w-6"></i>Masculino</a></li>
+      <li><a href="#costura" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-cut w-6"></i>Alfaiataria</a></li>
+      <li><a href="#localizacao" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-map-marker-alt w-6"></i>Localização</a></li>
+    </ul>
+    <div class="mt-auto pt-6 border-t border-stone-800 text-center">
+      <a href="login.html" class="flex items-center justify-center gap-2 w-full bg-stone-800 hover:bg-amber-700 text-white py-2 rounded-lg mb-4 transition-colors duration-300 shadow-lg border border-stone-700">
+        <i class="far fa-user-circle"></i> <span class="font-semibold text-sm">Área Admin</span>
+      </a>
+      <div class="flex justify-center gap-4 text-stone-400">
+        <a href="https://instagram.com/crazylookhaitian" target="_blank" rel="noopener noreferrer" class="hover:text-amber-500"><i class="fab fa-instagram text-xl"></i></a>
+        <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="hover:text-amber-500"><i class="fab fa-whatsapp text-xl"></i></a>
+      </div>
+    </div>
+  </nav>
 
-    <header class="relative h-[90vh] flex items-center justify-center overflow-hidden border-b border-stone-200">
-        <div class="absolute inset-0 z-0">
-            <img id="hero-img" src="images/main_image.jpg" 
-                 alt="Background Costura" class="w-full h-full object-cover grayscale opacity-20">
+  <nav class="fixed top-0 left-0 right-0 bg-stone-900 text-white p-4 lg:hidden z-50 shadow-lg">
+    <div class="flex justify-between items-center">
+        <h2 class="text-xl font-serif font-bold">CrazyLook</h2>
+        <button id="menu-toggle" class="p-2 text-amber-500 hover:text-white transition-colors">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+    <div id="mobile-menu" class="hidden flex-col mt-4 border-t border-stone-700 pt-4 space-y-2 bg-stone-900 absolute left-0 right-0 p-4 shadow-xl">
+        <a href="#home" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-home mr-3"></i>Home</a>
+        <a href="#sobre" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-store mr-3"></i>Sobre Nós</a>
+        <a href="#feminino" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-female mr-3"></i>Feminino</a>
+        <a href="#masculino" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-male mr-3"></i>Masculino</a>
+        <a href="#costura" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-cut mr-3"></i>Alfaiataria</a>
+        <a href="#localizacao" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-map-marker-alt mr-3"></i>Localização</a>
+        <a href="login.html" class="block py-2 px-4 bg-stone-800 rounded text-white mt-4 text-center border border-stone-700"><i class="far fa-user-circle mr-2"></i>Área Admin</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="home" class="relative h-[80vh] min-h-[500px] flex items-center justify-center px-6 bg-[url('images/imagem_fundo_principal_2.jpg')] bg-cover bg-center bg-no-repeat">
+      <div class="absolute inset-0 bg-stone-900/60 z-0"></div>
+      <div class="relative z-10 text-center max-w-4xl fade-in">
+        <span class="uppercase tracking-[0.3em] text-sm text-stone-200 mb-4 block font-semibold">Exclusividade e Precisão</span>
+        <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-white font-serif">CrazyLook Haitian</h1>
+        <p class="text-xl text-stone-100 mb-10 font-light italic leading-relaxed">Onde a tradição da alfaiataria encontra a modernidade do estilo.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#feminino" class="text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 hover:-translate-y-px hover:shadow-xl transform transition-all duration-300 border-none">Ver Coleção</a>
+          <a href="https://wa.me/5511949113032?text=Gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="border-2 border-white text-white hover:bg-white hover:text-stone-900 px-10 py-4 rounded-full font-semibold transition-all">Solicitar Orçamento</a>
         </div>
-        
-        <div class="relative z-10 text-center px-4 max-w-4xl fade-in">
-            <span class="uppercase tracking-[0.3em] text-sm text-stone-500 mb-4 block">Excelência em Alfaiataria</span>
-            <h1 class="text-5xl md:text-7xl font-bold text-stone-900 mb-6 font-serif">Crazy Look</h1>
-            <p class="text-xl md:text-2xl font-light italic text-stone-600 mb-10">
-                Onde cada ponto conta uma história de elegância e precisão.
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-6 justify-center">
-                <button onclick="irParaWhatsApp()" 
-                        class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl font-sans justify-center">
-                    <i class="fab fa-whatsapp text-xl"></i>
-                    <span class="font-semibold uppercase tracking-wider text-sm">Solicitar Orçamento</span>
-                </button>
-
-                <a href="produtos.html" 
-                class="bg-orange-600 hover:bg-orange-50 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl font-sans justify-center">
-                    <i class="fas fa-shopping-bag text-xl"></i>
-                    <span class="font-semibold uppercase tracking-wider text-sm">Conheça Nossos Produtos</span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
-            <h2 class="text-4xl font-bold font-serif mb-2">Nossas Criações</h2>
-            <p class="text-stone-500 italic">Um olhar sobre a precisão dos nossos cortes e a qualidade dos tecidos.</p>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[300px]">
-                <div class="md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="images/terno_completo.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Terno Completo">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500"></div>
-                </div>
-                <div class="md:col-span-2 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Araras de Roupas">
-                </div>
-                <div class="md:col-span-1 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="images/jeans.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Detalhe Camisa">
-                </div>
-                <div class="md:col-span-1 md:row-span-1 rounded-2xl overflow-hidden relative group shadow-lg">
-                    <img src="images/terno_verde.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Costura Detalhe">
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <section class="py-20 bg-stone-50 px-6 border-t border-stone-200">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <section id="sobre" class="py-20 bg-white border-b border-stone-200">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div class="relative">
                 <img src="images/atelier.jpg" alt="Sobre o ateliê" class="rounded-2xl shadow-xl w-full h-[500px] object-cover">
-                <div class="absolute -bottom-6 -right-6 bg-orange-600 text-white p-8 rounded-2xl shadow-2xl text-center hidden md:block">
-                    <span class="text-4xl font-bold block">20+</span>
-                    <span class="text-sm uppercase tracking-widest font-semibold">Anos de Experiência</span>
+                <div class="absolute -bottom-6 -right-6 bg-amber-600 text-white p-8 rounded-2xl shadow-2xl text-center hidden md:block">
+                    <span class="text-4xl font-bold block">20+</span><span class="text-sm uppercase tracking-widest font-semibold">Anos de Experiência</span>
                 </div>
             </div>
             <div class="space-y-6">
-                <span class="text-orange-600 font-semibold uppercase tracking-widest text-xs">Tradição e qualidade em cada ponto</span>
+                <span class="text-amber-600 font-semibold uppercase tracking-widest text-xs">Tradição e qualidade em cada ponto</span>
                 <h2 class="text-5xl font-bold text-stone-900 font-serif">Sobre Nós</h2>
-                <p class="text-stone-600 text-lg leading-relaxed">
-                    Com mais de duas décadas de experiência, o nosso atelier combina técnicas tradicionais de alfaiataria com tendências modernas. Cada peça é tratada com o máximo cuidado e atenção aos detalhes.
-                </p>
+                <p class="text-stone-600 text-lg leading-relaxed">Com mais de duas décadas de experiência, o nosso atelier combina técnicas tradicionais de alfaiataria com tendências modernas. Cada peça é tratada com o máximo cuidado e atenção aos detalhes.</p>
                 <div class="grid grid-cols-2 gap-4 pt-4">
-                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
-                        <div class="text-orange-600 text-2xl"><i class="far fa-clock"></i></div>
-                        <div><h4 class="font-bold text-stone-800">20+ Anos</h4><p class="text-xs text-stone-500 uppercase">experiência</p></div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
-                        <div class="text-orange-600 text-2xl"><i class="fas fa-users"></i></div>
-                        <div><h4 class="font-bold text-stone-800">Sempre no prazo</h4></div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
-                        <div class="text-orange-600 text-2xl"><i class="fas fa-award"></i></div>
-                        <div><h4 class="font-bold text-stone-800">Premium</h4><p class="text-xs text-stone-500 uppercase">qualidade</p></div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl flex items-center gap-4 border border-stone-100 shadow-sm">
-                        <div class="text-orange-600 text-2xl"><i class="fas fa-heart"></i></div>
-                        <div><h4 class="font-bold text-stone-800">Feito à Mão</h4><p class="text-xs text-stone-500 uppercase">com amor</p></div>
-                    </div>
+                    <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="far fa-clock"></i></div><div><h4 class="font-bold text-stone-800">20+ Anos</h4><p class="text-xs text-stone-500 uppercase">experiência</p></div></div>
+                    <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="fas fa-users"></i></div><div><h4 class="font-bold text-stone-800">Sempre no prazo</h4></div></div>
+                    <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="fas fa-award"></i></div><div><h4 class="font-bold text-stone-800">Premium</h4><p class="text-xs text-stone-500 uppercase">qualidade</p></div></div>
+                    <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="fas fa-heart"></i></div><div><h4 class="font-bold text-stone-800">Feito à Mão</h4><p class="text-xs text-stone-500 uppercase">com amor</p></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-white px-6">
-        <div class="max-w-7xl mx-auto text-center mb-16">
-            <span class="text-orange-600 font-semibold uppercase tracking-widest text-xs">O que fazemos</span>
-            <h2 class="text-5xl font-bold text-stone-900 mt-2 font-serif">Os Nossos Serviços</h2>
-        </div>
+    <section id="feminino" class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16"><h2 class="text-4xl font-bold mb-2">Moda Feminina</h2><div class="w-24 h-1 bg-amber-600 mx-auto"></div></div>
+        <div id="home-feminino-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+        <div class="text-center mt-12"><a href="produtos.html" class="inline-block border-b-2 border-amber-600 text-amber-700 font-bold hover:text-amber-800 transition-colors pb-1 uppercase tracking-wider text-sm">Veja Mais Produtos Femininos <i class="fas fa-arrow-right ml-2"></i></a></div>
+      </div>
+    </section>
 
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
-                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                    <i class="fas fa-cut"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Ajustes & Reparos</h3>
-                <p class="text-stone-500 mb-6 text-sm">Bainhas, apertos, consertos de zíperes e muito mais reformas em geral.</p>
+    <section id="masculino" class="py-20 bg-stone-50">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16"><h2 class="text-4xl font-bold mb-2">Moda Masculina</h2><div class="w-24 h-1 bg-amber-600 mx-auto"></div></div>
+          <div id="home-masculino-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+          <div class="text-center mt-12"><a href="produtos.html" class="inline-block border-b-2 border-amber-600 text-amber-700 font-bold hover:text-amber-800 transition-colors pb-1 uppercase tracking-wider text-sm">Veja Mais Produtos Masculinos <i class="fas fa-arrow-right ml-2"></i></a></div>
+        </div>
+    </section>
+
+    <section id="costura" class="py-20 bg-stone-100">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-amber-600 font-bold uppercase tracking-widest text-xs">Ateliê Próprio</span>
+                <h2 class="text-4xl font-bold mt-2 mb-6">Alfaiataria Sob Medida</h2>
+                <p class="text-lg text-stone-600 mb-6">Transformamos tecidos em peças que se ajustam perfeitamente ao seu corpo e estilo.</p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-600"></i> Ajustes de Alta Costura</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-600"></i> Confecção de Ternos e Blazers</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-600"></i> Customização de Peças</li>
+                </ul>
+                <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="inline-block text-white px-8 py-3 rounded-full font-bold bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 hover:-translate-y-px hover:shadow-lg transform transition-all duration-300">Falar com Alfaiate</a>
             </div>
-            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
-                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                    <i class="fas fa-ruler-combined"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Confecção Sob Medida</h3>
-                <p class="text-stone-500 mb-6 text-sm">Peças exclusivas desenhadas e feitas especialmente para o seu corpo.</p>
-            </div>
-            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
-                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Alfaiataria</h3>
-                <p class="text-stone-500 mb-6 text-sm">Costumes, blazers e calças sociais com caimento impecável e clássico.</p>
-            </div>
-            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
-                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                    <i class="fas fa-gem"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Vestidos de Noiva</h3>
-                <p class="text-stone-500 mb-6 text-sm">Ajustes delicados e customizações para o seu grande dia especial.</p>
-                <span class="text-orange-600 font-bold block">Sob consulta</span>
-            </div>
-            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
-                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                    <i class="fas fa-magic"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Customização</h3>
-                <p class="text-stone-500 mb-6 text-sm">Transforme peças antigas em novos modelos modernos e exclusivos.</p>
-            </div>
-            <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100 group hover:shadow-md transition-all hover:-translate-y-1">
-                <div class="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                    <i class="fas fa-pen-nib"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 font-serif text-stone-800">Bordados</h3>
-                <p class="text-stone-500 mb-6 text-sm">Bordados personalizados e monogramas em camisas ou enxovais.</p>
+            <div class="rounded-3xl overflow-hidden shadow-2xl md:h-[450px]">
+                <img src="images/costura_fundo.jpg" alt="Costura" class="w-full h-full object-cover">
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center border-t border-stone-200">
-        <div>
-            <h2 class="text-4xl font-bold mb-8 pb-4 border-b border-stone-200 font-serif">Visite nosso Ateliê</h2>
-            <div class="space-y-8">
-                <div class="flex items-start gap-5 text-stone-600">
-                    <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center text-emerald-800 shrink-0">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-stone-800">Endereço</h3>
-                        <p>Rua Miguel Rachid, 834 - Vila Paranagua<br>São Paulo - SP, 03808-130</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-5 text-stone-600">
-                    <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center text-emerald-800 shrink-0">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-stone-800">Horário de Funcionamento</h3>
-                        <p>Segunda a Sexta: 09h às 18h<br>Sábados: 09h às 17h</p>
-                    </div>
+    <section id="localizacao" class="py-24 px-6 bg-stone-50 border-t border-stone-200">
+        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl font-bold mb-8 pb-4 border-b border-stone-200 font-serif text-stone-900">Visite nosso Ateliê</h2>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-5 text-stone-600"><div class="w-12 h-12 bg-white border border-stone-200 rounded-full flex items-center justify-center text-amber-700 shrink-0 shadow-sm"><i class="fas fa-map-marker-alt"></i></div><div><h3 class="text-xl font-bold text-stone-800">Endereço</h3><p>Rua Miguel Rachid, 834 - Vila Paranagua<br>São Paulo - SP, 03808-130</p></div></div>
+                    <div class="flex items-start gap-5 text-stone-600"><div class="w-12 h-12 bg-white border border-stone-200 rounded-full flex items-center justify-center text-amber-700 shrink-0 shadow-sm"><i class="fas fa-clock"></i></div><div><h3 class="text-xl font-bold text-stone-800">Horário de Funcionamento</h3><p>Segunda a Sexta: 09h às 18h<br>Sábados: 09h às 17h</p></div></div>
                 </div>
             </div>
-        </div>
-        <div class="h-96 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 group">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.186642055627!2d-46.47530432386829!3d-23.507722759885885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce602008bc09b1%3A0x68b97f005f69978d!2sR.%20Miguel%20Rachid%2C%20834%20-%20Vila%20Paranagua%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003808-130!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
-                class="w-full h-full border-0" 
-                allowfullscreen="" loading="lazy">
-            </iframe>
+            <div class="h-96 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 group">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.186642055627!2d-46.47530432386829!3d-23.507722759885885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce602008bc09b1%3A0x68b97f005f69978d!2sR.%20Miguel%20Rachid%2C%20834%20-%20Vila%20Paranagua%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003808-130!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
     </section>
+  </main>
 
+  <footer class="bg-stone-900 text-white py-12 px-6">
+    <div class="container mx-auto text-center">
+      <h3 class="text-2xl font-serif mb-4">CrazyLook Haitian</h3>
+      <p class="text-stone-400 max-w-md mx-auto mb-8">Elegância, qualidade e a tradição de quem entende de costura.</p>
+      <div class="flex justify-center gap-6 mb-8 text-2xl">
+        <a href="https://www.instagram.com/crazylookhaitian" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-amber-500 transition-colors"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-amber-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="border-t border-stone-800 pt-8 text-sm text-stone-500">© <span id="year"></span> CrazyLook Haitian - Todos os direitos reservados.</div>
+    </div>
+  </footer>
 
+  <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-110 transition-all hover:bg-emerald-600 animate-bounce">
+    <i class="fab fa-whatsapp text-3xl"></i>
+  </a>
 
-    <footer class="py-12 text-center text-stone-400 border-t border-stone-200">
-        <div class="flex justify-center gap-8 mb-8 text-2xl">
-            <a href="https://www.instagram.com/crazylookhaitian" class="hover:text-orange-600 transition-colors"><i class="fab fa-instagram"></i></a>
+  <div id="product-modal" class="fixed inset-0 z-50 hidden bg-stone-900/90 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-5xl h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative animate-fade-in">
+        <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white/80 p-2 rounded-full hover:bg-red-100 text-stone-600 hover:text-red-600 transition-colors">
+            <i class="fas fa-times text-xl"></i>
+        </button>
+
+        <div class="w-full md:w-2/3 bg-stone-100 p-6 flex flex-col modal-scroll overflow-y-auto justify-start items-center">
+            <img id="modal-main-img" src="" class="h-64 md:h-[400px] w-full object-contain rounded-lg shadow-sm mb-6 bg-white border border-stone-200">
+            <div id="modal-gallery" class="grid grid-cols-5 gap-3 w-full max-w-lg"></div>
+            <div id="modal-video-container" class="hidden mt-6 w-full max-w-lg">
+                <h4 class="font-bold text-stone-700 mb-2 text-sm uppercase tracking-wide">Vídeo Detalhado</h4>
+                <video id="modal-video" class="w-full rounded-lg shadow-md border border-stone-200" controls></video>
+            </div>
         </div>
-        <p class="text-sm tracking-widest uppercase font-sans">
-            © <span id="year"></span> Crazy Look Ateliê
-        </p>
-    </footer>
 
-    <button onclick="irParaWhatsApp()" 
-            class="fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl hover:bg-emerald-600 transition-all flex items-center justify-center z-50 hover:scale-110 active:scale-95 animate-bounce">
-        <i class="fab fa-whatsapp text-3xl"></i>
-    </button>
+        <div class="w-full md:w-1/3 p-8 flex flex-col bg-white border-l border-stone-200">
+            <span id="modal-category" class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2">Categoria</span>
+            <h2 id="modal-title" class="text-3xl font-serif font-bold text-stone-900 mb-4 leading-tight">Nome do Produto</h2>
+            <div class="flex-1 overflow-y-auto pr-2 custom-scroll">
+                <p id="modal-desc" class="text-stone-600 text-sm leading-relaxed">Descrição completa...</p>
+            </div>
+            <div class="mt-6 pt-6 border-t border-stone-100 bg-white">
+                <p class="text-xs text-stone-400 mb-1 uppercase tracking-wider">Valor do Investimento</p>
+                <div class="text-4xl font-bold text-stone-900 mb-6" id="modal-price">R$ 0,00</div>
+                <button id="modal-btn-buy" class="w-full bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
+                    <i class="fab fa-whatsapp text-2xl"></i> Comprar Agora
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
 
-    <script>
-    // Ano Dinâmico
+  <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    function irParaWhatsApp() {
-        // Tenta pegar do banco (localStorage), se não tiver, usa o padrão
-        const savedPhone = localStorage.getItem('whatsapp_number');
-        const fone = savedPhone ? savedPhone : "5511949113032"; 
-        
-        const texto = encodeURIComponent("Olá! Gostaria de um orçamento.");
-        window.open(`https://wa.me/${fone}?text=${texto}`, '_blank');
+    // Menu Mobile
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+    });
+
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+        });
+    });
+
+    // Carregar Produtos
+    document.addEventListener("DOMContentLoaded", () => {
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        const femProducts = products.filter(p => p.category === 'lista-feminina').slice(0, 4);
+        const mascProducts = products.filter(p => p.category === 'lista-masculina').slice(0, 4);
+        renderGrid(femProducts, 'home-feminino-grid');
+        renderGrid(mascProducts, 'home-masculino-grid');
+    });
+
+    function renderGrid(list, elementId) {
+        const container = document.getElementById(elementId);
+        if (!container) return;
+        if (list.length === 0) { container.innerHTML = `<p class="text-stone-400 col-span-full text-center italic">Em breve novidades nesta coleção...</p>`; return; }
+
+        container.innerHTML = list.map((prod, idx) => {
+            const allProducts = JSON.parse(localStorage.getItem('products')) || [];
+            const realIndex = allProducts.findIndex(p => p.name === prod.name && p.desc === prod.desc);
+
+            return `
+            <div class="product-card rounded-2xl overflow-hidden shadow-sm flex flex-col h-full cursor-pointer group" onclick="openModal(${realIndex})">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="${prod.image}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-white/90 text-stone-800 px-4 py-2 rounded-full font-bold text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform"><i class="fas fa-eye mr-2"></i> Ver Detalhes</span>
+                    </div>
+                </div>
+                <div class="p-6 flex flex-col flex-1">
+                    <h3 class="font-bold text-lg mb-2 text-stone-800 leading-tight">${prod.name}</h3>
+                    <p class="text-stone-500 text-sm mb-4 line-clamp-2 flex-1">${prod.desc}</p>
+                    <div class="mt-auto flex justify-between items-center">
+                        <span class="text-xs text-stone-400">A partir de</span>
+                        <span class="text-xl font-bold text-amber-700">R$ ${prod.price}</span>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
     }
-</script>
+
+    // Lógica do Modal
+    function openModal(index) {
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        const prod = products[index];
+        const modal = document.getElementById('product-modal');
+        
+        document.getElementById('modal-main-img').src = prod.image;
+        document.getElementById('modal-category').innerText = prod.category === 'lista-feminina' ? 'Moda Feminina' : 'Moda Masculina';
+        document.getElementById('modal-title').innerText = prod.name;
+        document.getElementById('modal-desc').innerText = prod.desc;
+        document.getElementById('modal-price').innerText = `R$ ${prod.price}`;
+        
+        const galleryContainer = document.getElementById('modal-gallery');
+        galleryContainer.innerHTML = '';
+        
+        createThumb(prod.image, true);
+        if (prod.gallery && prod.gallery.length > 0) {
+            prod.gallery.forEach(imgUrl => createThumb(imgUrl, false));
+        }
+
+        const videoContainer = document.getElementById('modal-video-container');
+        const videoElement = document.getElementById('modal-video');
+        if (prod.video && prod.video.length > 10) { 
+            videoContainer.classList.remove('hidden');
+            videoElement.src = prod.video;
+        } else {
+            videoContainer.classList.add('hidden');
+            videoElement.src = '';
+        }
+
+        document.getElementById('modal-btn-buy').onclick = () => {
+            const phone = localStorage.getItem('whatsapp_number') || '5511949113032';
+            const text = `Olá! Tenho interesse no produto: *${prod.name}* (R$ ${prod.price}). Poderia me dar mais detalhes?`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        };
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function createThumb(url, isActive) {
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = `w-full h-16 aspect-square object-cover rounded-md cursor-pointer hover:opacity-100 border-2 transition-all ${isActive ? 'border-amber-600 opacity-100' : 'border-transparent opacity-60'}`;
+        img.onclick = () => {
+            document.getElementById('modal-main-img').src = url;
+            const allThumbs = document.getElementById('modal-gallery').querySelectorAll('img');
+            allThumbs.forEach(t => {
+                t.classList.remove('border-amber-600', 'opacity-100');
+                t.classList.add('border-transparent', 'opacity-60');
+            });
+            img.classList.remove('border-transparent', 'opacity-60');
+            img.classList.add('border-amber-600', 'opacity-100');
+        };
+        document.getElementById('modal-gallery').appendChild(img);
+    }
+
+    function closeModal() {
+        document.getElementById('product-modal').classList.add('hidden');
+        document.getElementById('modal-video').pause();
+        document.getElementById('modal-video').src = '';
+        document.body.style.overflow = 'auto';
+    }
+
+    document.getElementById('product-modal').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('product-modal')) closeModal();
+    });
+  </script>
+
 </body>
 </html>
