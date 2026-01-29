@@ -11,3 +11,4 @@ crazy_look.db
 .venv/
 env/
 venv/
+.env
