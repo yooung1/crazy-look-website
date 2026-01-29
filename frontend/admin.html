@@ -37,16 +37,12 @@
         
         <section id="sec-config" class="max-w-2xl">
             <h2 class="text-3xl font-bold text-stone-800 mb-6">Configurações Gerais</h2>
-            
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-200">
                 <div class="mb-6">
                     <label class="block text-sm font-bold uppercase text-stone-500 mb-2">Número do WhatsApp Principal</label>
-                    <p class="text-xs text-gray-400 mb-2">Este número será usado em todos os botões de "Orçamento" do site.</p>
                     <div class="flex gap-2">
                         <input type="text" id="admin-whatsapp" placeholder="5511999999999" class="flex-1 border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-orange-500 transition-all">
-                        <button onclick="saveWhatsApp()" class="bg-green-600 hover:bg-green-700 text-white px-6 rounded-xl font-bold transition-all">
-                            Salvar
-                        </button>
+                        <button onclick="saveWhatsApp()" class="bg-green-600 hover:bg-green-700 text-white px-6 rounded-xl font-bold transition-all">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -70,15 +66,14 @@
                             <th class="p-6 text-right">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-product-list" class="divide-y divide-gray-100">
-                        </tbody>
+                    <tbody id="admin-product-list" class="divide-y divide-gray-100"></tbody>
                 </table>
             </div>
         </section>
     </main>
 
     <div id="modal-product" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
-        <div class="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl overflow-y-auto max-h-[90vh]">
+        <div class="bg-white rounded-3xl p-8 max-w-2xl w-full shadow-2xl overflow-y-auto max-h-[90vh]">
             <h3 class="text-2xl font-bold mb-6 text-stone-800" id="modal-title">Novo Produto</h3>
             <form id="form-product" class="space-y-4">
                 <input type="hidden" id="prod-id"> 
@@ -103,21 +98,25 @@
                 </div>
 
                 <div>
-                    <label class="text-xs font-bold uppercase text-stone-400">Imagem do Produto</label>
-                    
+                    <label class="text-xs font-bold uppercase text-stone-400">Imagem Principal</label>
                     <div class="mt-1 flex items-center gap-4">
-                        <label class="cursor-pointer bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl font-bold shadow-md transition-all flex items-center gap-2 text-sm">
-                            <i class="fas fa-upload"></i> Escolher Arquivo
+                        <label class="cursor-pointer bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl font-bold shadow-md text-sm">
+                            <i class="fas fa-upload"></i> Escolher
                             <input type="file" id="prod-img-input" accept="image/*" class="hidden" onchange="previewImage()">
                         </label>
                         <span id="file-name" class="text-xs text-stone-500 truncate max-w-[150px]">Nenhum arquivo...</span>
                     </div>
-
                     <div id="img-preview-container" class="hidden mt-3">
-                        <img id="img-preview" src="" class="w-24 h-24 object-cover rounded-xl border-2 border-stone-200 shadow-sm">
+                        <img id="img-preview" src="" class="w-24 h-24 object-cover rounded-xl border-2 border-stone-200">
                     </div>
-
                     <input type="hidden" id="prod-img-base64">
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold uppercase text-stone-400">Galeria de Imagens</label>
+                    <p class="text-xs text-stone-400 mb-2">Selecione múltiplas fotos para a galeria.</p>
+                    <input type="file" id="prod-gallery-input" multiple accept="image/*" class="w-full border p-2 rounded-xl bg-gray-50 text-sm">
+                    <input type="hidden" id="prod-gallery-json"> 
                 </div>
 
                 <div>
@@ -134,173 +133,151 @@
     </div>
 
     <script>
-        // --- LÓGICA DO ADMIN ---
+        // --- FUNÇÕES UTILITÁRIAS ---
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
 
-        // 1. Navegação das Abas
+        // --- NAVEGAÇÃO ---
         function showSection(section) {
             document.getElementById('sec-config').classList.add('hidden');
             document.getElementById('sec-products').classList.add('hidden');
-            document.getElementById('btn-config').className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-stone-800 text-stone-300 transition-all";
-            document.getElementById('btn-products').className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-stone-800 text-stone-300 transition-all";
-
             document.getElementById('sec-' + section).classList.remove('hidden');
-            
-            if(section === 'config') {
-                document.getElementById('btn-config').className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-600 text-white transition-all";
-            } else {
-                document.getElementById('btn-products').className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-600 text-white transition-all";
-                renderAdminProducts();
-            }
+            if(section === 'products') renderAdminProducts();
         }
 
-        // 2. WhatsApp Logic
+        // --- WHATSAPP ---
         function loadWhatsApp() {
-            const currentPhone = localStorage.getItem('whatsapp_number') || '5511949113032';
-            document.getElementById('admin-whatsapp').value = currentPhone;
+            document.getElementById('admin-whatsapp').value = localStorage.getItem('whatsapp_number') || '5511949113032';
         }
-
         function saveWhatsApp() {
-            const newPhone = document.getElementById('admin-whatsapp').value;
-            localStorage.setItem('whatsapp_number', newPhone);
-            alert('Número atualizado com sucesso!');
+            localStorage.setItem('whatsapp_number', document.getElementById('admin-whatsapp').value);
+            alert('Salvo!');
         }
 
-        // 3. Produtos Logic (CRUD)
+        // --- PRODUTOS ---
         let products = JSON.parse(localStorage.getItem('products')) || [];
 
         function renderAdminProducts() {
             const tbody = document.getElementById('admin-product-list');
             tbody.innerHTML = '';
-
             products.forEach((prod, index) => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-gray-50 transition-colors";
                 tr.innerHTML = `
-                    <td class="p-6 flex items-center gap-4">
-                        <img src="${prod.image}" class="w-12 h-12 rounded-lg object-cover border border-gray-200">
-                        <span class="font-bold text-stone-800">${prod.name}</span>
-                    </td>
+                    <td class="p-6 flex items-center gap-4"><img src="${prod.image}" class="w-12 h-12 rounded-lg object-cover"><span class="font-bold text-stone-800">${prod.name}</span></td>
                     <td class="p-6 text-orange-600 font-bold">R$ ${prod.price}</td>
-                    <td class="p-6 text-sm text-stone-500">${prod.category === 'lista-feminina' ? 'Feminino' : 'Masculino'}</td>
+                    <td class="p-6 text-sm text-stone-500">${prod.category}</td>
                     <td class="p-6 text-right space-x-2">
-                        <button onclick="editProduct(${index})" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
-                        <button onclick="deleteProduct(${index})" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
+                        <button onclick="editProduct(${index})" class="text-blue-500"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteProduct(${index})" class="text-red-500"><i class="fas fa-trash"></i></button>
+                    </td>`;
                 tbody.appendChild(tr);
             });
         }
 
-        // Função de Preview de Imagem (Base64)
         function previewImage() {
-            const input = document.getElementById('prod-img-input');
-            const previewContainer = document.getElementById('img-preview-container');
-            const previewImg = document.getElementById('img-preview');
-            const fileName = document.getElementById('file-name');
-            const hiddenInput = document.getElementById('prod-img-base64');
-
-            const file = input.files[0];
-
+            const file = document.getElementById('prod-img-input').files[0];
             if (file) {
-                fileName.innerText = file.name;
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImg.src = e.target.result;
-                    previewContainer.classList.remove('hidden');
-                    hiddenInput.value = e.target.result; // Salva o Base64
-                }
-                reader.readAsDataURL(file);
-            } else {
-                fileName.innerText = "Nenhum arquivo...";
-                previewContainer.classList.add('hidden');
+                toBase64(file).then(base64 => {
+                    document.getElementById('img-preview').src = base64;
+                    document.getElementById('img-preview-container').classList.remove('hidden');
+                    document.getElementById('prod-img-base64').value = base64;
+                });
             }
         }
 
         function openProductModal(index = null) {
             document.getElementById('modal-product').classList.remove('hidden');
-            
-            // Reseta visual
+            document.getElementById('form-product').reset();
             document.getElementById('img-preview-container').classList.add('hidden');
-            document.getElementById('file-name').innerText = "Nenhum arquivo...";
             document.getElementById('prod-img-base64').value = "";
-            document.getElementById('prod-img-input').value = "";
-
+            document.getElementById('prod-gallery-json').value = "";
+            
             if (index !== null) {
-                // Modo Edição
                 document.getElementById('modal-title').innerText = "Editar Produto";
+                const p = products[index];
                 document.getElementById('prod-id').value = index;
-                document.getElementById('prod-name').value = products[index].name;
-                document.getElementById('prod-price').value = products[index].price;
-                document.getElementById('prod-cat').value = products[index].category;
-                document.getElementById('prod-desc').value = products[index].desc;
+                document.getElementById('prod-name').value = p.name;
+                document.getElementById('prod-price').value = p.price;
+                document.getElementById('prod-cat').value = p.category;
+                document.getElementById('prod-desc').value = p.desc;
                 
-                // Carrega imagem existente
-                if (products[index].image) {
-                    document.getElementById('img-preview').src = products[index].image;
+                // Imagem Principal
+                if (p.image) {
+                    document.getElementById('img-preview').src = p.image;
                     document.getElementById('img-preview-container').classList.remove('hidden');
-                    document.getElementById('prod-img-base64').value = products[index].image;
+                    document.getElementById('prod-img-base64').value = p.image;
                 }
+                // Galeria
+                document.getElementById('prod-gallery-json').value = JSON.stringify(p.gallery || []);
             } else {
-                // Modo Criação
                 document.getElementById('modal-title').innerText = "Novo Produto";
-                document.getElementById('form-product').reset();
                 document.getElementById('prod-id').value = '';
             }
         }
 
-        function closeProductModal() {
-            document.getElementById('modal-product').classList.add('hidden');
-        }
+        function closeProductModal() { document.getElementById('modal-product').classList.add('hidden'); }
 
-        document.getElementById('form-product').addEventListener('submit', function(e) {
+        document.getElementById('form-product').addEventListener('submit', async function(e) {
             e.preventDefault();
             const id = document.getElementById('prod-id').value;
             
-            // Lógica para manter imagem antiga se não trocar
-            let imageValue = document.getElementById('prod-img-base64').value;
-            if (id !== '' && imageValue === '') {
-                imageValue = products[id].image;
-            }
-            if (imageValue === '') {
-                imageValue = 'https://via.placeholder.com/400'; 
-            }
+            try {
+                // 1. Imagem Principal
+                let mainImage = document.getElementById('prod-img-base64').value;
+                if (!mainImage && id !== '') mainImage = products[id].image;
+                if (!mainImage) mainImage = 'https://via.placeholder.com/400';
 
-            const newProduct = {
-                name: document.getElementById('prod-name').value,
-                price: document.getElementById('prod-price').value,
-                category: document.getElementById('prod-cat').value,
-                image: imageValue,
-                desc: document.getElementById('prod-desc').value
-            };
+                // 2. Galeria (Novos Uploads)
+                const galleryInput = document.getElementById('prod-gallery-input');
+                let galleryArray = [];
+                
+                if (galleryInput.files.length > 0) {
+                    for (let file of galleryInput.files) {
+                        const b64 = await toBase64(file);
+                        galleryArray.push(b64);
+                    }
+                } else {
+                    const oldGallery = document.getElementById('prod-gallery-json').value;
+                    if (oldGallery) galleryArray = JSON.parse(oldGallery);
+                }
 
-            if (id !== '') {
-                products[id] = newProduct;
-            } else {
-                products.push(newProduct);
+                const newProduct = {
+                    name: document.getElementById('prod-name').value,
+                    price: document.getElementById('prod-price').value,
+                    category: document.getElementById('prod-cat').value,
+                    image: mainImage,
+                    gallery: galleryArray,
+                    desc: document.getElementById('prod-desc').value
+                };
+
+                if (id !== '') products[id] = newProduct;
+                else products.push(newProduct);
+
+                localStorage.setItem('products', JSON.stringify(products));
+                closeProductModal();
+                renderAdminProducts();
+                alert('Produto salvo com sucesso!');
+
+            } catch (error) {
+                console.error(error);
+                alert('Erro ao salvar. O arquivo pode ser muito grande.');
             }
-
-            localStorage.setItem('products', JSON.stringify(products));
-            closeProductModal();
-            renderAdminProducts();
         });
 
-        function editProduct(index) {
-            openProductModal(index);
-        }
-
+        function editProduct(index) { openProductModal(index); }
         function deleteProduct(index) {
-            if(confirm('Tem certeza que deseja excluir este produto?')) {
+            if(confirm('Excluir?')) {
                 products.splice(index, 1);
                 localStorage.setItem('products', JSON.stringify(products));
                 renderAdminProducts();
             }
         }
-
-        function logout() {
-            localStorage.removeItem('isLogged');
-            window.location.href = 'index.html';
-        }
-
+        function logout() { localStorage.removeItem('isLogged'); window.location.href = 'index.html'; }
+        
         loadWhatsApp();
     </script>
 </body>
