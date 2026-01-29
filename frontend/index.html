@@ -11,7 +11,6 @@
   <link rel="shortcut icon" href="images/alfaiate_favicon.png" type="image/png">
   
   <style>
-    /* Estilos Gerais */
     :root {
       --bg-principal: #FDFCFB;
       --cor-destaque: #d97706; 
@@ -27,15 +26,22 @@
     .product-card { background: white; border: 1px solid var(--borda); transition: all 0.3s ease; }
     .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); border-color: var(--cor-destaque); }
     
-    /* Scroll do Modal */
+    /* Scroll */
     .modal-scroll::-webkit-scrollbar { width: 8px; }
     .modal-scroll::-webkit-scrollbar-thumb { background-color: #d6d3d1; border-radius: 4px; }
+
+    /* Animação do Carrinho Lateral */
+    @keyframes slideInRight {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+    }
+    .cart-anim { animation: slideInRight 0.3s ease-out forwards; }
   </style>
 </head>
 <body>
 
   <nav class="fixed top-0 left-0 h-full bg-stone-900 text-white w-64 p-6 hidden lg:flex flex-col z-50 shadow-2xl">
-    <div class="mb-10"><h2 class="text-3xl font-serif font-bold text-white">CrazyLook</h2><p class="text-xs text-stone-400 uppercase tracking-widest mt-1">Haitian • Ateliê</p></div>
+    <div class="mb-10"><h2 class="text-3xl font-serif font-bold text-white">Crazy Look Haitian</h2><p class="text-xs text-stone-400 uppercase tracking-widest mt-1">Ateliê</p></div>
     <ul class="flex flex-col gap-2 text-lg flex-1 overflow-y-auto">
       <li><a href="#home" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-home w-6"></i>Home</a></li>
       <li><a href="#sobre" class="nav-link flex items-center gap-3 p-3 rounded-lg transition-all"><i class="fas fa-store w-6"></i>Sobre Nós</a></li>
@@ -46,16 +52,16 @@
     </ul>
     <div class="mt-auto pt-6 border-t border-stone-800 text-center">
       <a href="login.html" class="flex items-center justify-center gap-2 w-full bg-stone-800 hover:bg-amber-700 text-white py-2 rounded-lg mb-4 transition-colors duration-300 shadow-lg border border-stone-700">
-        <i class="far fa-user-circle"></i> <span class="font-semibold text-sm">Área Admin</span>
+        <i class="far fa-user-circle"></i> <span class="font-semibold text-sm">Login</span>
       </a>
       <div class="flex justify-center gap-4 text-stone-400">
-        <a href="https://instagram.com/crazylookhaitian" target="_blank" rel="noopener noreferrer" class="hover:text-amber-500"><i class="fab fa-instagram text-xl"></i></a>
-        <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="hover:text-amber-500"><i class="fab fa-whatsapp text-xl"></i></a>
+        <a id="insta-link-sidebar" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-amber-500"><i class="fab fa-instagram text-xl"></i></a>
+        <a href="#" class="whatsapp-link hover:text-amber-500" target="_blank"><i class="fab fa-whatsapp text-xl"></i></a>
       </div>
     </div>
   </nav>
 
-  <nav class="fixed top-0 left-0 right-0 bg-stone-900 text-white p-4 lg:hidden z-50 shadow-lg">
+  <nav class="fixed top-0 left-0 right-0 bg-stone-900 text-white p-4 lg:hidden z-40 shadow-lg">
     <div class="flex justify-between items-center">
         <h2 class="text-xl font-serif font-bold">CrazyLook</h2>
         <button id="menu-toggle" class="p-2 text-amber-500 hover:text-white transition-colors">
@@ -69,7 +75,7 @@
         <a href="#masculino" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-male mr-3"></i>Masculino</a>
         <a href="#costura" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-cut mr-3"></i>Alfaiataria</a>
         <a href="#localizacao" class="block py-2 px-4 hover:bg-stone-800 rounded text-stone-300 hover:text-amber-500"><i class="fas fa-map-marker-alt mr-3"></i>Localização</a>
-        <a href="login.html" class="block py-2 px-4 bg-stone-800 rounded text-white mt-4 text-center border border-stone-700"><i class="far fa-user-circle mr-2"></i>Área Admin</a>
+        <a href="login.html" class="block py-2 px-4 bg-stone-800 rounded text-white mt-4 text-center border border-stone-700"><i class="far fa-user-circle mr-2"></i>Login</a>
     </div>
   </nav>
 
@@ -78,11 +84,11 @@
       <div class="absolute inset-0 bg-stone-900/60 z-0"></div>
       <div class="relative z-10 text-center max-w-4xl fade-in">
         <span class="uppercase tracking-[0.3em] text-sm text-stone-200 mb-4 block font-semibold">Exclusividade e Precisão</span>
-        <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-white font-serif">CrazyLook Haitian</h1>
+        <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-white font-serif">Crazy Look Haitian</h1>
         <p class="text-xl text-stone-100 mb-10 font-light italic leading-relaxed">Onde a tradição da alfaiataria encontra a modernidade do estilo.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="#feminino" class="text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 hover:-translate-y-px hover:shadow-xl transform transition-all duration-300 border-none">Ver Coleção</a>
-          <a href="https://wa.me/5511949113032?text=Gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="border-2 border-white text-white hover:bg-white hover:text-stone-900 px-10 py-4 rounded-full font-semibold transition-all">Solicitar Orçamento</a>
+          <a href="#" class="whatsapp-link border-2 border-white text-white hover:bg-white hover:text-stone-900 px-10 py-4 rounded-full font-semibold transition-all" target="_blank">Solicitar Orçamento</a>
         </div>
       </div>
     </section>
@@ -98,12 +104,10 @@
             <div class="space-y-6">
                 <span class="text-amber-600 font-semibold uppercase tracking-widest text-xs">Tradição e qualidade em cada ponto</span>
                 <h2 class="text-5xl font-bold text-stone-900 font-serif">Sobre Nós</h2>
-                <p class="text-stone-600 text-lg leading-relaxed">Com mais de duas décadas de experiência, o nosso atelier combina técnicas tradicionais de alfaiataria com tendências modernas. Cada peça é tratada com o máximo cuidado e atenção aos detalhes.</p>
+                <p class="text-stone-600 text-lg leading-relaxed">Com mais de duas décadas de experiência, o nosso atelier combina técnicas tradicionais de alfaiataria com tendências modernas.</p>
                 <div class="grid grid-cols-2 gap-4 pt-4">
                     <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="far fa-clock"></i></div><div><h4 class="font-bold text-stone-800">20+ Anos</h4><p class="text-xs text-stone-500 uppercase">experiência</p></div></div>
                     <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="fas fa-users"></i></div><div><h4 class="font-bold text-stone-800">Sempre no prazo</h4></div></div>
-                    <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="fas fa-award"></i></div><div><h4 class="font-bold text-stone-800">Premium</h4><p class="text-xs text-stone-500 uppercase">qualidade</p></div></div>
-                    <div class="bg-stone-50 p-6 rounded-xl flex items-center gap-4 border border-stone-200 shadow-sm"><div class="text-amber-600 text-2xl"><i class="fas fa-heart"></i></div><div><h4 class="font-bold text-stone-800">Feito à Mão</h4><p class="text-xs text-stone-500 uppercase">com amor</p></div></div>
                 </div>
             </div>
         </div>
@@ -131,12 +135,7 @@
                 <span class="text-amber-600 font-bold uppercase tracking-widest text-xs">Ateliê Próprio</span>
                 <h2 class="text-4xl font-bold mt-2 mb-6">Alfaiataria Sob Medida</h2>
                 <p class="text-lg text-stone-600 mb-6">Transformamos tecidos em peças que se ajustam perfeitamente ao seu corpo e estilo.</p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-600"></i> Ajustes de Alta Costura</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-600"></i> Confecção de Ternos e Blazers</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-600"></i> Customização de Peças</li>
-                </ul>
-                <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="inline-block text-white px-8 py-3 rounded-full font-bold bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 hover:-translate-y-px hover:shadow-lg transform transition-all duration-300">Falar com Alfaiate</a>
+                <a href="#" class="whatsapp-link inline-block text-white px-8 py-3 rounded-full font-bold bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 shadow-lg" target="_blank">Falar com Alfaiate</a>
             </div>
             <div class="rounded-3xl overflow-hidden shadow-2xl md:h-[450px]">
                 <img src="images/costura_fundo.jpg" alt="Costura" class="w-full h-full object-cover">
@@ -165,14 +164,19 @@
       <h3 class="text-2xl font-serif mb-4">CrazyLook Haitian</h3>
       <p class="text-stone-400 max-w-md mx-auto mb-8">Elegância, qualidade e a tradição de quem entende de costura.</p>
       <div class="flex justify-center gap-6 mb-8 text-2xl">
-        <a href="https://www.instagram.com/crazylookhaitian" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-amber-500 transition-colors"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-amber-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
+        <a id="insta-link-footer" href="#" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-amber-500 transition-colors"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="whatsapp-link text-stone-400 hover:text-amber-500 transition-colors" target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
       <div class="border-t border-stone-800 pt-8 text-sm text-stone-500">© <span id="year"></span> CrazyLook Haitian - Todos os direitos reservados.</div>
     </div>
   </footer>
 
-  <a href="https://wa.me/5511949113032?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento" target="_blank" rel="noopener noreferrer" class="fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-110 transition-all hover:bg-emerald-600 animate-bounce">
+  <button onclick="toggleCart()" class="fixed bottom-28 right-8 bg-stone-900 text-white p-4 rounded-full shadow-2xl z-50 flex items-center gap-2 hover:scale-105 transition-all border-2 border-amber-600">
+    <i class="fas fa-shopping-bag text-xl"></i>
+    <span id="cart-count" class="bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center absolute -top-1 -right-1">0</span>
+  </button>
+
+  <a href="#" class="whatsapp-link fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-110 transition-all hover:bg-emerald-600 animate-bounce" target="_blank">
     <i class="fab fa-whatsapp text-3xl"></i>
   </a>
 
@@ -200,10 +204,33 @@
             <div class="mt-6 pt-6 border-t border-stone-100 bg-white">
                 <p class="text-xs text-stone-400 mb-1 uppercase tracking-wider">Valor do Investimento</p>
                 <div class="text-4xl font-bold text-stone-900 mb-6" id="modal-price">R$ 0,00</div>
-                <button id="modal-btn-buy" class="w-full bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
-                    <i class="fab fa-whatsapp text-2xl"></i> Comprar Agora
+                <button id="modal-btn-add" class="w-full bg-stone-900 hover:bg-stone-800 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
+                    <i class="fas fa-cart-plus text-xl"></i> Adicionar ao Carrinho
                 </button>
             </div>
+        </div>
+    </div>
+  </div>
+
+  <div id="cart-modal" class="hidden fixed inset-0 bg-black/50 z-[60] flex justify-end transition-all">
+    <div class="bg-white w-full max-w-md h-full flex flex-col p-6 cart-anim shadow-2xl">
+        <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+            <h2 class="text-2xl font-bold text-stone-800 flex items-center gap-2"><i class="fas fa-shopping-bag text-amber-600"></i> Seu Carrinho</h2>
+            <button onclick="toggleCart()" class="text-stone-400 hover:text-red-500 transition-colors"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto space-y-4 modal-scroll">
+            <p class="text-center text-stone-500 mt-10 italic">Seu carrinho está vazio.</p>
+        </div>
+
+        <div class="mt-auto pt-6 border-t border-gray-200">
+            <div class="flex justify-between items-end mb-4">
+                <span class="text-sm font-bold text-stone-500 uppercase">Total Estimado</span>
+                <span id="cart-total" class="text-3xl font-bold text-amber-600">R$ 0,00</span>
+            </div>
+            <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold text-lg shadow-lg transition-all flex justify-center items-center gap-2">
+                <i class="fab fa-whatsapp text-2xl"></i> Finalizar Compra
+            </button>
         </div>
     </div>
   </div>
@@ -211,30 +238,127 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Menu Mobile
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        mobileMenu.classList.toggle('flex');
-    });
+    // --- VARIÁVEIS DO CARRINHO ---
+    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
 
-    // Fechar menu ao clicar em um link
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
-        });
-    });
-
-    // Carregar Produtos
+    // --- CARREGAR CONFIGURAÇÕES GERAIS ---
     document.addEventListener("DOMContentLoaded", () => {
+        const savedInsta = localStorage.getItem('instagram_link') || 'https://instagram.com/crazylookhaitian';
+        const savedWpp = localStorage.getItem('whatsapp_number') || '5511949113032';
+
+        // Atualizar Instagram
+        const instaSidebar = document.getElementById('insta-link-sidebar');
+        const instaFooter = document.getElementById('insta-link-footer');
+        if(instaSidebar) instaSidebar.href = savedInsta;
+        if(instaFooter) instaFooter.href = savedInsta;
+
+        // Atualizar todos os links do WhatsApp
+        const wppLinks = document.querySelectorAll('.whatsapp-link');
+        wppLinks.forEach(link => {
+            const currentText = link.href.includes('text=') ? link.href.split('text=')[1] : 'Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento';
+            link.href = `https://wa.me/${savedWpp}?text=${currentText}`;
+        });
+        
+        // Atualizar Contador do Carrinho
+        updateCartCount();
+
+        // Carregar produtos da home
+        renderHomeProducts();
+    });
+
+    // --- LÓGICA DO CARRINHO ---
+    function addToCart(product) {
+        cart.push(product);
+        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        updateCartCount();
+        closeModal();
+        toggleCart(); // Abre o carrinho para mostrar que adicionou
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        updateCartCount();
+        renderCartItems();
+    }
+
+    function updateCartCount() {
+        document.getElementById('cart-count').innerText = cart.length;
+    }
+
+    function toggleCart() {
+        const modal = document.getElementById('cart-modal');
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+            renderCartItems();
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+
+    function renderCartItems() {
+        const container = document.getElementById('cart-items');
+        const totalEl = document.getElementById('cart-total');
+        
+        container.innerHTML = '';
+        
+        if (cart.length === 0) {
+            container.innerHTML = '<div class="text-center text-stone-400 py-10"><i class="fas fa-shopping-basket text-4xl mb-3"></i><p>Seu carrinho está vazio.</p></div>';
+            totalEl.innerText = 'R$ 0,00';
+            return;
+        }
+
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            // Converter preço de string (1.200,00) para float (1200.00)
+            let priceClean = item.price.replace(/\./g, '').replace(',', '.');
+            total += parseFloat(priceClean);
+
+            container.innerHTML += `
+                <div class="flex gap-4 bg-stone-50 p-3 rounded-xl border border-stone-200">
+                    <img src="${item.image}" class="w-20 h-20 object-cover rounded-lg">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-stone-800 text-sm line-clamp-1">${item.name}</h4>
+                        <p class="text-amber-600 font-bold text-sm">R$ ${item.price}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-stone-400 hover:text-red-500 p-2"><i class="fas fa-trash"></i></button>
+                </div>
+            `;
+        });
+
+        // Formata o total de volta para BRL
+        totalEl.innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function checkoutWhatsApp() {
+        if(cart.length === 0) return alert("Seu carrinho está vazio!");
+
+        const phone = localStorage.getItem('whatsapp_number') || '5511949113032';
+        let message = "*Olá! Gostaria de finalizar o seguinte pedido:*\n\n";
+        let total = 0;
+
+        cart.forEach(item => {
+            message += `▪️ ${item.name} - R$ ${item.price}\n`;
+            let priceClean = item.price.replace(/\./g, '').replace(',', '.');
+            total += parseFloat(priceClean);
+        });
+
+        const totalFormatted = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        message += `\n💰 *Total Estimado: ${totalFormatted}*`;
+        message += `\n\n_Aguardo a confirmação e detalhes de pagamento._`;
+
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    // --- LÓGICA DE PRODUTOS HOME ---
+    function renderHomeProducts() {
         const products = JSON.parse(localStorage.getItem('products')) || [];
         const femProducts = products.filter(p => p.category === 'lista-feminina').slice(0, 4);
         const mascProducts = products.filter(p => p.category === 'lista-masculina').slice(0, 4);
         renderGrid(femProducts, 'home-feminino-grid');
         renderGrid(mascProducts, 'home-masculino-grid');
-    });
+    }
 
     function renderGrid(list, elementId) {
         const container = document.getElementById(elementId);
@@ -265,7 +389,7 @@
         }).join('');
     }
 
-    // Lógica do Modal
+    // --- LÓGICA MODAL PRODUTO ---
     function openModal(index) {
         const products = JSON.parse(localStorage.getItem('products')) || [];
         const prod = products[index];
@@ -295,10 +419,18 @@
             videoElement.src = '';
         }
 
-        document.getElementById('modal-btn-buy').onclick = () => {
-            const phone = localStorage.getItem('whatsapp_number') || '5511949113032';
-            const text = `Olá! Tenho interesse no produto: *${prod.name}* (R$ ${prod.price}). Poderia me dar mais detalhes?`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        // Alteração: Botão agora chama addToCart
+        const btnAdd = document.getElementById('modal-btn-add');
+        // Clonamos o nó para remover event listeners antigos
+        const newBtn = btnAdd.cloneNode(true);
+        btnAdd.parentNode.replaceChild(newBtn, btnAdd);
+        
+        newBtn.onclick = () => {
+            addToCart({
+                name: prod.name,
+                price: prod.price,
+                image: prod.image
+            });
         };
 
         modal.classList.remove('hidden');
@@ -329,10 +461,24 @@
         document.body.style.overflow = 'auto';
     }
 
+    // Toggle Menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+    });
+
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+        });
+    });
+
     document.getElementById('product-modal').addEventListener('click', (e) => {
         if (e.target === document.getElementById('product-modal')) closeModal();
     });
   </script>
-
 </body>
 </html>
