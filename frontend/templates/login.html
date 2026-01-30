@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Crazy Look Ateliê</title>
+    <link rel="icon" href="/static/images/alfaiate_favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1 { font-family: 'Playfair Display', serif; }
+        .bg-login {
+            background: linear-gradient(rgba(253, 252, 251, 0.9), rgba(253, 252, 251, 0.8)), 
+                        url('/static/images/main_image.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-login min-h-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-md bg-white/80 backdrop-blur-md rounded-[2.5rem] shadow-2xl border border-white p-10 fade-in">
+        <div class="text-center mb-10">
+            <a href="/" class="inline-block mb-4">
+                <span class="text-orange-600 font-bold text-2xl uppercase tracking-tighter italic">Crazy Look Haitian</span>
+            </a>
+            <h1 class="text-3xl text-stone-900 leading-tight">Bem-vindo de volta</h1>
+            <p class="text-stone-500 text-sm mt-2">Acesse sua área exclusiva de alfaiataria</p>
+        </div>
+        <form id="login-form" class="space-y-6" onsubmit="event.preventDefault(); checkLogin();">
+            <div class="space-y-2">
+                <label class="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Usuário</label>
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"><i class="far fa-user"></i></span>
+                    <input type="text" id="username" required class="w-full bg-white/50 border border-stone-200 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition-all" placeholder="seu usuário">
+                </div>
+            </div>
+            <div class="space-y-2">
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="password" required class="w-full bg-white/50 border border-stone-200 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition-all" placeholder="••••••••">
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-stone-900 text-white py-5 rounded-2xl font-bold uppercase tracking-widest hover:bg-orange-600 transition-all shadow-lg shadow-stone-900/20 active:scale-[0.98]">Entrar na Conta</button>
+        </form>
+    </div>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>
