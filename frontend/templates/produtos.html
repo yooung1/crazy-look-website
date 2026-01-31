@@ -9,18 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #FDFCFB; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .modal-scroll::-webkit-scrollbar { width: 8px; }
         .modal-scroll::-webkit-scrollbar-thumb { background-color: #d6d3d1; border-radius: 4px; }
-        @keyframes slideInRight {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
+        @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
         .cart-anim { animation: slideInRight 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="bg-[#FDFCFB] text-stone-800">
+<body class="text-stone-800">
 
     <nav class="bg-white border-b border-stone-200 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -32,7 +29,8 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-12 px-6 space-y-16">
+    <main class="max-w-7xl mx-auto py-12 px-6 space-y-16 min-h-screen">
+        
         <section>
             <div class="text-center mb-10">
                 <div class="inline-flex items-center gap-3 mb-2">
@@ -40,9 +38,11 @@
                     <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">Moda Feminina</h2>
                 </div>
                 <div class="w-16 h-1 bg-amber-600 mx-auto rounded-full mb-4"></div>
-                <p class="text-stone-500">Descubra nossa coleção exclusiva de roupas femininas.</p>
+                <p class="text-stone-500">Elegância e sofisticação para todos os momentos.</p>
             </div>
-            <div id="lista-feminina" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+            <div id="lista-feminina" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <p class="col-span-full text-center text-stone-400 py-10">Carregando coleção...</p>
+            </div>
         </section>
 
         <section>
@@ -52,14 +52,16 @@
                     <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">Moda Masculina</h2>
                 </div>
                 <div class="w-16 h-1 bg-stone-700 mx-auto rounded-full mb-4"></div>
-                <p class="text-stone-500">Peças clássicas e modernas para o homem contemporâneo.</p>
+                <p class="text-stone-500">Cortes precisos e estilo impecável.</p>
             </div>
-            <div id="lista-masculina" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+            <div id="lista-masculina" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <p class="col-span-full text-center text-stone-400 py-10">Carregando coleção...</p>
+            </div>
         </section>
     </main>
     
     <footer class="bg-stone-900 text-white py-8 text-center mt-12">
-        <p class="text-stone-500 text-sm">© 2026 CrazyLook Haitian. Todos os direitos reservados.</p>
+        <p class="text-stone-500 text-sm">© <span id="year"></span> CrazyLook Haitian. Todos os direitos reservados.</p>
     </footer>
     
     <button onclick="toggleCart()" class="fixed bottom-28 right-8 bg-stone-900 text-white p-4 rounded-full shadow-2xl z-50 flex items-center gap-2 hover:scale-105 transition-all border-2 border-amber-600">
@@ -80,17 +82,13 @@
             <div class="w-full md:w-2/3 bg-stone-100 p-6 flex flex-col modal-scroll overflow-y-auto justify-start items-center">
                 <img id="modal-main-img" src="" class="h-64 md:h-[400px] w-full object-contain rounded-lg shadow-sm mb-6 bg-white border border-stone-200">
                 <div id="modal-gallery" class="grid grid-cols-5 gap-3 w-full max-w-lg"></div>
-                <div id="modal-video-container" class="hidden mt-6 w-full max-w-lg">
-                    <h4 class="font-bold text-stone-700 mb-2 text-sm uppercase tracking-wide">Vídeo Detalhado</h4>
-                    <video id="modal-video" class="w-full rounded-lg shadow-md border border-stone-200" controls></video>
-                </div>
             </div>
 
             <div class="w-full md:w-1/3 p-8 flex flex-col bg-white border-l border-stone-200">
                 <span id="modal-category" class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2">Categoria</span>
                 <h2 id="modal-title" class="text-3xl font-serif font-bold text-stone-900 mb-4 leading-tight">Nome do Produto</h2>
                 <div class="flex-1 overflow-y-auto pr-2 custom-scroll">
-                    <p id="modal-desc" class="text-stone-600 text-sm leading-relaxed">Descrição completa...</p>
+                    <p id="modal-desc" class="text-stone-600 text-sm leading-relaxed">Descrição...</p>
                 </div>
                 <div class="mt-6 pt-6 border-t border-stone-100 bg-white">
                     <p class="text-xs text-stone-400 mb-1 uppercase tracking-wider">Valor do Investimento</p>
@@ -125,217 +123,222 @@
             </div>
         </div>
     </div>
-    
+
     <script>
-    // ... todo o JS anterior ...
-    // Apenas certifique-se que o loadPage é chamado
-    window.onload = loadPage;
-    
-    // VARIÁVEIS DO CARRINHO
-    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-    const products = JSON.parse(localStorage.getItem('products')) || [];
+        document.getElementById('year').textContent = new Date().getFullYear();
+        let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+        let globalWhatsapp = "5511999999999"; 
 
-    // --- INIT ---
-    function loadPage() {
-        const femContainer = document.getElementById('lista-feminina');
-        const mascContainer = document.getElementById('lista-masculina');
-        
-        femContainer.innerHTML = '';
-        mascContainer.innerHTML = '';
+        document.addEventListener("DOMContentLoaded", () => {
+            loadConfig();   // Busca Zap
+            loadProducts(); // Busca Produtos
+            updateCartCount();
+        });
 
-        if (products.length === 0) {
-            femContainer.innerHTML = '<p class="col-span-full text-center text-stone-400">Nenhum produto cadastrado.</p>';
-            return;
+        // --- 1. CONFIGURAÇÕES (ZAP) ---
+        async function loadConfig() {
+            try {
+                const res = await fetch('/api/config');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.whatsapp) {
+                        globalWhatsapp = "55" + data.whatsapp.replace(/\D/g, ''); 
+                        const wppLinks = document.querySelectorAll('.whatsapp-link');
+                        wppLinks.forEach(link => {
+                            link.href = `https://wa.me/${globalWhatsapp}?text=Ol%C3%A1%2C%20estou%20vendo%20a%20cole%C3%A7%C3%A3o%20online.`;
+                        });
+                    }
+                }
+            } catch (e) { console.error(e); }
         }
 
-        products.forEach((prod, index) => {
-            const card = `
-                <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-xl transition-all group flex flex-col h-full hover:border-amber-500 duration-300 cursor-pointer" onclick="openModal(${index})">
-                    <div class="h-80 overflow-hidden relative">
-                        <img src="${prod.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="bg-white/90 text-stone-800 px-4 py-2 rounded-full font-bold text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                                <i class="fas fa-eye mr-2"></i> Ver Detalhes
-                            </span>
+        // --- 2. CARREGAR PRODUTOS (SEM LIMITE) ---
+        async function loadProducts() {
+            try {
+                const res = await fetch('/api/products');
+                const products = await res.json();
+
+                const femContainer = document.getElementById('lista-feminina');
+                const mascContainer = document.getElementById('lista-masculina');
+                
+                femContainer.innerHTML = '';
+                mascContainer.innerHTML = '';
+
+                if (products.length === 0) {
+                    femContainer.innerHTML = '<p class="col-span-full text-center text-stone-400">Nenhum produto cadastrado.</p>';
+                    return;
+                }
+
+                products.forEach((prod) => {
+                    const img = prod.image || 'https://via.placeholder.com/300x400?text=Sem+Foto';
+                    
+                    const card = `
+                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-xl transition-all group flex flex-col h-full hover:border-amber-500 duration-300 cursor-pointer" onclick="openProductModal(${prod.id})">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="bg-white/90 text-stone-800 px-4 py-2 rounded-full font-bold text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                    <i class="fas fa-eye mr-2"></i> Ver Detalhes
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-1">
-                        <h3 class="font-bold text-lg text-stone-900 leading-tight mb-2 font-serif">${prod.name}</h3>
-                        <p class="text-sm text-stone-500 mb-4 line-clamp-2 flex-1">${prod.desc}</p>
-                        <div class="mt-auto border-t border-stone-100 pt-4 flex justify-between items-center">
-                            <span class="text-amber-700 font-bold text-xl">R$ ${prod.price}</span>
-                            <span class="text-xs text-stone-400 uppercase font-bold tracking-wider">Ver mais</span>
+                        <div class="p-6 flex flex-col flex-1">
+                            <h3 class="font-bold text-lg text-stone-900 leading-tight mb-2 font-serif">${prod.name}</h3>
+                            <div class="mt-auto border-t border-stone-100 pt-4 flex justify-between items-center">
+                                <span class="text-amber-700 font-bold text-xl">R$ ${prod.price.toFixed(2)}</span>
+                                <span class="text-xs text-stone-400 uppercase font-bold tracking-wider">Ver mais</span>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            `;
-            if (prod.category === 'lista-feminina') femContainer.innerHTML += card;
-            else mascContainer.innerHTML += card;
-        });
+                    </div>`;
 
-        const savedWpp = localStorage.getItem('whatsapp_number') || '5511949113032';
-        document.querySelectorAll('.whatsapp-link').forEach(link => {
-            link.href = `https://wa.me/${savedWpp}?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento`;
-        });
+                    if (prod.category === 'feminino') femContainer.innerHTML += card;
+                    else mascContainer.innerHTML += card;
+                });
 
-        updateCartCount();
-    }
-    
-    // ... resto das funções (addToCart, toggleCart, etc) mantidas ...
-    function addToCart(product) {
-        cart.push(product);
-        localStorage.setItem('shoppingCart', JSON.stringify(cart));
-        updateCartCount();
-        closeModal();
-        toggleCart();
-    }
+            } catch (e) {
+                console.error("Erro produtos:", e);
+            }
+        }
 
-    function removeFromCart(index) {
-        cart.splice(index, 1);
-        localStorage.setItem('shoppingCart', JSON.stringify(cart));
-        updateCartCount();
-        renderCartItems();
-    }
+        // --- 3. MODAL E DETALHES ---
+        async function openProductModal(id) {
+            try {
+                const res = await fetch(`/api/products/${id}`);
+                const prod = await res.json();
+                
+                const modal = document.getElementById('product-modal');
+                const mainImg = prod.images.find(i => i.is_main) || prod.images[0];
+                
+                // Preencher Modal
+                document.getElementById('modal-main-img').src = mainImg ? mainImg.path : '';
+                document.getElementById('modal-category').innerText = prod.category === 'feminino' ? 'Moda Feminina' : 'Moda Masculina';
+                document.getElementById('modal-title').innerText = prod.name;
+                document.getElementById('modal-desc').innerText = "Produto exclusivo Crazy Look Haitian. Alta costura e acabamento premium.";
+                document.getElementById('modal-price').innerText = `R$ ${prod.price.toFixed(2)}`;
+                
+                // Galeria
+                const gallery = document.getElementById('modal-gallery');
+                gallery.innerHTML = '';
+                if (prod.images.length > 0) {
+                    prod.images.forEach(img => {
+                        const thumb = document.createElement('img');
+                        thumb.src = img.path;
+                        thumb.className = `w-full h-16 aspect-square object-cover rounded-md cursor-pointer hover:opacity-100 border-2 transition-all ${img.is_main ? 'border-amber-600' : 'border-transparent opacity-60'}`;
+                        thumb.onclick = () => {
+                            document.getElementById('modal-main-img').src = img.path;
+                            gallery.querySelectorAll('img').forEach(t => {
+                                t.classList.remove('border-amber-600', 'opacity-100');
+                                t.classList.add('border-transparent', 'opacity-60');
+                            });
+                            thumb.classList.add('border-amber-600', 'opacity-100');
+                            thumb.classList.remove('border-transparent', 'opacity-60');
+                        };
+                        gallery.appendChild(thumb);
+                    });
+                }
 
-    function updateCartCount() {
-        document.getElementById('cart-count').innerText = cart.length;
-    }
+                // Botão Adicionar
+                const btnAdd = document.getElementById('modal-btn-add');
+                const newBtn = btnAdd.cloneNode(true);
+                btnAdd.parentNode.replaceChild(newBtn, btnAdd);
+                
+                newBtn.onclick = () => {
+                    addToCart({
+                        name: prod.name,
+                        price: prod.price,
+                        image: mainImg ? mainImg.path : ''
+                    });
+                };
 
-    function toggleCart() {
-        const modal = document.getElementById('cart-modal');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+            } catch (e) { console.error(e); }
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- 4. CARRINHO ---
+        function addToCart(product) {
+            cart.push(product);
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            updateCartCount();
+            closeModal();
+            toggleCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            updateCartCount();
             renderCartItems();
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    function renderCartItems() {
-        const container = document.getElementById('cart-items');
-        const totalEl = document.getElementById('cart-total');
-        
-        container.innerHTML = '';
-        
-        if (cart.length === 0) {
-            container.innerHTML = '<div class="text-center text-stone-400 py-10"><i class="fas fa-shopping-basket text-4xl mb-3"></i><p>Seu carrinho está vazio.</p></div>';
-            totalEl.innerText = 'R$ 0,00';
-            return;
         }
 
-        let total = 0;
-
-        cart.forEach((item, index) => {
-            let priceClean = item.price.replace(/\./g, '').replace(',', '.');
-            total += parseFloat(priceClean);
-
-            container.innerHTML += `
-                <div class="flex gap-4 bg-stone-50 p-3 rounded-xl border border-stone-200">
-                    <img src="${item.image}" class="w-20 h-20 object-cover rounded-lg">
-                    <div class="flex-1">
-                        <h4 class="font-bold text-stone-800 text-sm line-clamp-1">${item.name}</h4>
-                        <p class="text-amber-600 font-bold text-sm">R$ ${item.price}</p>
-                    </div>
-                    <button onclick="removeFromCart(${index})" class="text-stone-400 hover:text-red-500 p-2"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
-        });
-
-        totalEl.innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    function checkoutWhatsApp() {
-        if(cart.length === 0) return alert("Seu carrinho está vazio!");
-
-        const phone = localStorage.getItem('whatsapp_number') || '5511949113032';
-        let message = "*Olá! Gostaria de finalizar o seguinte pedido:*\n\n";
-        let total = 0;
-
-        cart.forEach(item => {
-            message += `▪️ ${item.name} - R$ ${item.price}\n`;
-            let priceClean = item.price.replace(/\./g, '').replace(',', '.');
-            total += parseFloat(priceClean);
-        });
-
-        const totalFormatted = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        message += `\n💰 *Total Estimado: ${totalFormatted}*`;
-        message += `\n\n_Aguardo a confirmação e detalhes de pagamento._`;
-
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-
-    function openModal(index) {
-        const products = JSON.parse(localStorage.getItem('products')) || [];
-        const prod = products[index];
-        const modal = document.getElementById('product-modal');
-        
-        document.getElementById('modal-main-img').src = prod.image;
-        document.getElementById('modal-category').innerText = prod.category === 'lista-feminina' ? 'Moda Feminina' : 'Moda Masculina';
-        document.getElementById('modal-title').innerText = prod.name;
-        document.getElementById('modal-desc').innerText = prod.desc;
-        document.getElementById('modal-price').innerText = `R$ ${prod.price}`;
-        
-        const galleryContainer = document.getElementById('modal-gallery');
-        galleryContainer.innerHTML = '';
-        
-        createThumb(prod.image, true);
-        if (prod.gallery && prod.gallery.length > 0) {
-            prod.gallery.forEach(imgUrl => createThumb(imgUrl, false));
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.length;
         }
 
-        const videoContainer = document.getElementById('modal-video-container');
-        const videoElement = document.getElementById('modal-video');
-        if (prod.video && prod.video.length > 10) { 
-            videoContainer.classList.remove('hidden');
-            videoElement.src = prod.video;
-        } else {
-            videoContainer.classList.add('hidden');
-            videoElement.src = '';
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                renderCartItems();
+            } else {
+                modal.classList.add('hidden');
+            }
         }
 
-        const btnAdd = document.getElementById('modal-btn-add');
-        const newBtn = btnAdd.cloneNode(true);
-        btnAdd.parentNode.replaceChild(newBtn, btnAdd);
-        
-        newBtn.onclick = () => {
-            addToCart({
-                name: prod.name,
-                price: prod.price,
-                image: prod.image
+        function renderCartItems() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="text-center text-stone-400 py-10"><i class="fas fa-shopping-basket text-4xl mb-3"></i><p>Seu carrinho está vazio.</p></div>';
+                totalEl.innerText = 'R$ 0,00';
+                return;
+            }
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div class="flex gap-4 bg-stone-50 p-3 rounded-xl border border-stone-200">
+                        <img src="${item.image}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-stone-800 text-sm line-clamp-1">${item.name}</h4>
+                            <p class="text-amber-600 font-bold text-sm">R$ ${item.price.toFixed(2)}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-stone-400 hover:text-red-500 p-2"><i class="fas fa-trash"></i></button>
+                    </div>`;
             });
-        };
+            totalEl.innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
 
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
+        function checkoutWhatsApp() {
+            if(cart.length === 0) return alert("Seu carrinho está vazio!");
 
-    function createThumb(url, isActive) {
-        const img = document.createElement('img');
-        img.src = url;
-        img.className = `w-full h-16 aspect-square object-cover rounded-md cursor-pointer hover:opacity-100 border-2 transition-all ${isActive ? 'border-amber-600 opacity-100' : 'border-transparent opacity-60'}`;
-        img.onclick = () => {
-            document.getElementById('modal-main-img').src = url;
-            const allThumbs = document.getElementById('modal-gallery').querySelectorAll('img');
-            allThumbs.forEach(t => {
-                t.classList.remove('border-amber-600', 'opacity-100');
-                t.classList.add('border-transparent', 'opacity-60');
+            let message = "*Olá! Gostaria de finalizar o seguinte pedido:*\n\n";
+            let total = 0;
+
+            cart.forEach(item => {
+                message += `▪️ ${item.name} - R$ ${item.price.toFixed(2)}\n`;
+                total += item.price;
             });
-            img.classList.remove('border-transparent', 'opacity-60');
-            img.classList.add('border-amber-600', 'opacity-100');
-        };
-        document.getElementById('modal-gallery').appendChild(img);
-    }
 
-    function closeModal() {
-        document.getElementById('product-modal').classList.add('hidden');
-        document.getElementById('modal-video').pause();
-        document.getElementById('modal-video').src = '';
-        document.body.style.overflow = 'auto';
-    }
+            const totalFormatted = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            message += `\n💰 *Total Estimado: ${totalFormatted}*`;
+            message += `\n\n_Gostaria de saber as formas de pagamento._`;
 
-    document.getElementById('product-modal').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('product-modal')) closeModal();
-    });
+            window.open(`https://wa.me/${globalWhatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        document.getElementById('product-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('product-modal')) closeModal();
+        });
     </script>
 </body>
 </html>
