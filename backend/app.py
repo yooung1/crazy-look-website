@@ -234,6 +234,3 @@ async def login_api(data: LoginRequest):
     conn.close()
     if row and row[0] == data.password: return {"redirect": "/admin"}
     raise HTTPException(401, "Erro login")
-
-if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
