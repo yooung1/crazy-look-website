@@ -10,21 +10,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-gray-100 font-['Inter'] flex h-screen overflow-hidden">
+    
     <script>
-        // Verificação de Segurança no Frontend
         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = '/login';
         }
     </script>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-stone-900 text-white flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300">
-        <div class="p-6 border-b border-stone-700">
-            <h1 class="text-2xl font-bold text-orange-500 italic">Crazy Look</h1>
-            <p class="text-xs text-stone-400 mt-1">Painel Administrativo</p>
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden glass transition-opacity"></div>
+
+    <header class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-stone-900 text-white flex items-center justify-between px-4 z-30 shadow-md">
+        <a href="/">
+            <div class="font-bold text-orange-500 italic text-xl">Crazy Look</div>
+        </a>
+        <button onclick="toggleSidebar()" class="text-white p-2 focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </header>
+
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-stone-900 text-white flex flex-col shadow-2xl transition-transform duration-300 transform -translate-x-full lg:translate-x-0 lg:static">
+        <div class="p-6 border-b border-stone-700 flex justify-between items-center">
+            <div>
+                <a href="/">
+                    <h1 class="text-2xl font-bold text-orange-500 italic">Crazy Look</h1>
+                    <p class="text-xs text-stone-400 mt-1">Painel Administrativo</p>
+                </a>
+                
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden text-stone-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
-        <nav class="flex-1 p-4 space-y-2">
-            <button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-600 text-white"><i class="fas fa-cogs"></i> Configurações</button>
+        
+        <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+            <button onclick="showSection('section-config'); toggleSidebar()" id="btn-config" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-600 text-white transition-all">
+                <i class="fas fa-cogs w-5"></i> Configurações
+            </button>
+            <button onclick="showSection('section-products'); toggleSidebar()" id="btn-products" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-stone-300 hover:bg-stone-800 transition-all">
+                <i class="fas fa-tshirt w-5"></i> Produtos
+            </button>
         </nav>
+
         <div class="p-4 border-t border-stone-700">
             <button onclick="logout()" class="w-full flex items-center gap-2 px-4 py-2 text-red-400 hover:text-red-300 transition-colors">
                 <i class="fas fa-sign-out-alt"></i> Sair
@@ -32,11 +58,337 @@
         </div>
     </aside>
 
-    <main class="flex-1 p-8 ml-0 lg:ml-64 transition-all">
-        <h2 class="text-3xl font-bold text-stone-800">Bem-vindo ao Painel</h2>
-        <p class="text-stone-500 mt-2">Selecione uma opção no menu lateral.</p>
+    <main class="flex-1 p-4 lg:p-8 transition-all h-full overflow-y-auto pt-20 lg:pt-8 w-full">
+        
+        <div id="section-config" class="animate-fade-in space-y-6">
+            <h2 class="text-2xl lg:text-3xl font-bold text-stone-800 border-b pb-4 mb-6">Configurações Gerais</h2>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 w-full max-w-2xl">
+                <form id="config-form" onsubmit="event.preventDefault(); saveConfig();" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-stone-600 mb-2">WhatsApp</label>
+                        <input type="text" id="whatsapp" class="w-full p-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="(11) 99999-9999">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-600 mb-2">Instagram</label>
+                        <input type="url" id="instagram" class="w-full p-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="https://instagram.com/...">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-600 mb-2">Endereço</label>
+                        <textarea id="address" rows="3" class="w-full p-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-orange-500 outline-none resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full lg:w-auto bg-stone-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all">
+                        Salvar Configurações
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="section-products" class="hidden animate-fade-in space-y-6 pb-20">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-6 gap-4">
+                <h2 class="text-2xl lg:text-3xl font-bold text-stone-800">Gerenciar Produtos</h2>
+                <button onclick="resetForm(); toggleProductForm(true);" class="w-full sm:w-auto bg-orange-600 text-white px-4 py-3 rounded-lg font-bold hover:bg-orange-700 transition-all shadow-lg flex items-center justify-center gap-2">
+                    <i class="fas fa-plus"></i> Novo Produto
+                </button>
+            </div>
+
+            <div id="product-form-container" class="hidden bg-white p-6 rounded-2xl shadow-lg border border-orange-100 mb-8 relative">
+                <button onclick="toggleProductForm(false); resetForm();" class="absolute top-4 right-4 text-stone-400 hover:text-red-500 p-2"><i class="fas fa-times text-xl"></i></button>
+                <h3 id="form-title" class="text-xl font-bold text-stone-800 mb-4 pr-8">Cadastrar Novo Item</h3>
+                
+                <form id="product-form" onsubmit="event.preventDefault(); saveProduct();" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="col-span-2 md:col-span-1">
+                        <label class="block text-sm font-bold text-stone-600 mb-2">Nome</label>
+                        <input type="text" id="prod-name" required class="w-full p-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-orange-500 outline-none">
+                    </div>
+                    <div class="col-span-2 md:col-span-1">
+                        <label class="block text-sm font-bold text-stone-600 mb-2">Preço (R$)</label>
+                        <input type="number" id="prod-price" step="0.01" required class="w-full p-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-orange-500 outline-none">
+                    </div>
+
+                    <div class="col-span-2 md:col-span-1">
+                        <label class="block text-sm font-bold text-stone-600 mb-2">Categoria</label>
+                        <select id="prod-category" class="w-full p-3 rounded-xl border border-stone-300 bg-white focus:ring-2 focus:ring-orange-500 outline-none">
+                            <option value="masculino">Moda Masculina</option>
+                            <option value="feminino">Moda Feminina</option>
+                        </select>
+                    </div>
+
+                    <div id="existing-images-container" class="col-span-2 hidden bg-stone-50 p-4 rounded-xl border border-stone-200">
+                        <label class="block text-sm font-bold text-stone-600 mb-3">Imagens Atuais</label>
+                        <div id="existing-images-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label class="block text-sm font-bold text-stone-600 mb-2">Novas Fotos</label>
+                        
+                        <div class="border-2 border-dashed border-stone-300 rounded-xl p-8 text-center hover:bg-stone-50 active:bg-stone-100 transition-colors cursor-pointer" onclick="document.getElementById('prod-images').click()">
+                            <i class="fas fa-camera text-4xl text-stone-400 mb-3"></i>
+                            <p class="text-stone-500 font-medium">Toque para abrir a Câmera ou Galeria</p>
+                            <input type="file" id="prod-images" multiple accept="image/*" class="hidden" onchange="handleNewImageSelect(event)">
+                        </div>
+
+                        <div id="new-image-preview-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-4 mt-4"></div>
+                        
+                        <p id="main-help-text" class="text-xs text-orange-600 mt-2 font-bold"><i class="fas fa-info-circle"></i> Ao criar, marque a bolinha da CAPA.</p>
+                    </div>
+
+                    <div class="col-span-2">
+                        <button id="btn-save-prod" type="submit" class="w-full bg-stone-900 text-white py-4 rounded-xl font-bold hover:bg-green-600 transition-all text-lg shadow-md">
+                            Salvar Produto
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
     </main>
 
     <script src="/static/js/auth.js"></script>
+    <script>
+        let currentEditId = null;
+        let selectedFiles = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadConfig();
+            loadProducts();
+        });
+
+        // --- LÓGICA MOBILE (SIDEBAR) ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            // Alterna classes para mostrar/esconder
+            if (sidebar.classList.contains('-translate-x-full')) {
+                // Abrir
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                // Fechar
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // --- NAVEGAÇÃO ---
+        function showSection(id) {
+            document.getElementById('section-config').classList.add('hidden');
+            document.getElementById('section-products').classList.add('hidden');
+            document.getElementById('btn-config').classList.replace('bg-orange-600', 'text-stone-300');
+            document.getElementById('btn-config').classList.remove('text-white');
+            document.getElementById('btn-products').classList.replace('bg-orange-600', 'text-stone-300');
+            document.getElementById('btn-products').classList.remove('text-white');
+
+            document.getElementById(id).classList.remove('hidden');
+
+            const activeBtn = id === 'section-config' ? 'btn-config' : 'btn-products';
+            document.getElementById(activeBtn).classList.add('bg-orange-600', 'text-white');
+            document.getElementById(activeBtn).classList.remove('text-stone-300');
+        }
+
+        function toggleProductForm(show) {
+            const el = document.getElementById('product-form-container');
+            if(show === true) el.classList.remove('hidden');
+            else if(show === false) el.classList.add('hidden');
+            else el.classList.toggle('hidden');
+        }
+
+        function resetForm() {
+            currentEditId = null;
+            document.getElementById('product-form').reset();
+            document.getElementById('new-image-preview-grid').innerHTML = "";
+            document.getElementById('existing-images-container').classList.add('hidden');
+            document.getElementById('form-title').innerText = "Cadastrar Novo Item";
+            document.getElementById('btn-save-prod').innerText = "Salvar Produto";
+            document.getElementById('main-help-text').classList.remove('hidden');
+            document.getElementById('prod-category').value = "masculino"; 
+            selectedFiles = [];
+        }
+
+        // --- CRUD ---
+        async function loadProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '<p class="text-center p-4">Carregando...</p>';
+            try {
+                const res = await fetch('/api/products');
+                const prods = await res.json();
+                grid.innerHTML = "";
+                if(prods.length === 0) { grid.innerHTML = "<p class='text-center text-stone-500'>Nenhum produto cadastrado.</p>"; return; }
+
+                prods.forEach(p => {
+                    const img = p.image || 'https://via.placeholder.com/300x300?text=Sem+Foto';
+                    const catLabel = p.category === 'feminino' ? 'Feminino' : 'Masculino';
+                    
+                    grid.innerHTML += `
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden group hover:shadow-xl relative transition-all">
+                            <div class="h-48 bg-stone-100 flex items-center justify-center overflow-hidden relative">
+                                <img src="${img}" class="w-full h-full object-cover">
+                                <span class="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded shadow">${catLabel}</span>
+                                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition-all">
+                                    <button onclick="prepareEdit(${p.id})" class="bg-white w-12 h-12 rounded-full hover:bg-orange-500 hover:text-white transition-all shadow-lg flex items-center justify-center"><i class="fas fa-edit text-lg"></i></button>
+                                    <button onclick="deleteProduct(${p.id})" class="bg-white w-12 h-12 rounded-full text-red-500 hover:bg-red-600 hover:text-white transition-all shadow-lg flex items-center justify-center"><i class="fas fa-trash text-lg"></i></button>
+                                </div>
+                                </div>
+                            <div class="p-4 flex justify-between items-center">
+                                <div class="overflow-hidden">
+                                    <h4 class="font-bold text-lg text-stone-800 truncate">${p.name}</h4>
+                                    <p class="text-orange-600 font-bold">R$ ${p.price.toFixed(2)}</p>
+                                </div>
+                                <button onclick="prepareEdit(${p.id})" class="lg:hidden text-stone-400 p-2"><i class="fas fa-pen"></i></button>
+                            </div>
+                        </div>`;
+                });
+            } catch { grid.innerHTML = "<p>Erro.</p>"; }
+        }
+
+        async function prepareEdit(id) {
+            currentEditId = id;
+            try {
+                const res = await fetch(`/api/products/${id}`);
+                const data = await res.json();
+
+                document.getElementById('prod-name').value = data.name;
+                document.getElementById('prod-price').value = data.price;
+                document.getElementById('prod-category').value = data.category || 'masculino';
+
+                document.getElementById('form-title').innerText = "Editar Produto";
+                document.getElementById('btn-save-prod').innerText = "Atualizar Dados";
+                document.getElementById('main-help-text').classList.add('hidden');
+
+                const container = document.getElementById('existing-images-container');
+                const grid = document.getElementById('existing-images-grid');
+                container.classList.remove('hidden');
+                grid.innerHTML = "";
+
+                data.images.forEach(img => {
+                    const isMain = img.is_main;
+                    const borderClass = isMain ? 'border-orange-500 border-4' : 'border-stone-200 border';
+                    const bgClass = isMain ? 'bg-orange-500' : 'bg-transparent border border-white';
+
+                    grid.innerHTML += `
+                        <div class="relative h-24 rounded-lg overflow-hidden ${borderClass} group shadow-sm">
+                            <img src="${img.path}" class="w-full h-full object-cover">
+                            <button type="button" onclick="deleteImageUnit(${img.id})" class="absolute top-1 right-1 bg-red-500 text-white w-8 h-8 rounded-full text-sm hover:bg-red-700 z-10 flex items-center justify-center shadow-md"><i class="fas fa-times"></i></button>
+                            <div onclick="setMainImage(${img.id})" class="absolute bottom-1 right-1 bg-black/60 rounded-full p-2 cursor-pointer" title="Capa">
+                                <div class="w-4 h-4 rounded-full ${bgClass}"></div>
+                            </div>
+                        </div>`;
+                });
+
+                selectedFiles = [];
+                document.getElementById('new-image-preview-grid').innerHTML = "";
+                toggleProductForm(true);
+                // Scroll para o formulário no mobile
+                setTimeout(() => {
+                    document.getElementById('product-form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+
+            } catch (e) { alert("Erro ao carregar."); }
+        }
+
+        async function deleteImageUnit(imgId) {
+            if(!confirm("Apagar foto?")) return;
+            await fetch(`/api/images/${imgId}`, { method: 'DELETE' });
+            prepareEdit(currentEditId); loadProducts();
+        }
+
+        async function setMainImage(imgId) {
+            await fetch(`/api/images/${imgId}/main`, { method: 'POST' });
+            prepareEdit(currentEditId); loadProducts();
+        }
+
+        function handleNewImageSelect(event) {
+            const files = Array.from(event.target.files);
+            const grid = document.getElementById('new-image-preview-grid');
+            grid.innerHTML = "";
+            selectedFiles = files;
+
+            files.forEach((file, idx) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    let radioHtml = "";
+                    if (!currentEditId) {
+                        radioHtml = `<div class="absolute bottom-1 right-1 bg-black/60 rounded-full p-2"><input type="radio" name="new_main_image" value="${idx}" ${idx===0?'checked':''} class="accent-orange-600 w-5 h-5"></div>`;
+                    }
+                    grid.innerHTML += `<div class="relative h-24 rounded-lg overflow-hidden border border-stone-200"><img src="${e.target.result}" class="w-full h-full object-cover">${radioHtml}</div>`;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function saveProduct() {
+            const btn = document.getElementById('btn-save-prod');
+            const originalText = btn.innerText;
+            btn.innerText = "Enviando..."; btn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('name', document.getElementById('prod-name').value);
+            formData.append('price', document.getElementById('prod-price').value);
+            formData.append('category', document.getElementById('prod-category').value);
+
+            selectedFiles.forEach(f => formData.append('files', f));
+
+            if (!currentEditId) {
+                if(selectedFiles.length === 0) {
+                    alert("Adicione fotos."); btn.innerText = originalText; btn.disabled = false; return;
+                }
+                const mainIndex = document.querySelector('input[name="new_main_image"]:checked')?.value || 0;
+                formData.append('main_image_index', mainIndex);
+            }
+
+            try {
+                let url = '/api/products';
+                let method = 'POST';
+                if(currentEditId) { url = `/api/products/${currentEditId}`; method = 'PUT'; }
+
+                const res = await fetch(url, { method: method, body: formData });
+                if(res.ok) {
+                    alert("Salvo!");
+                    if(currentEditId) prepareEdit(currentEditId);
+                    else { resetForm(); toggleProductForm(false); }
+                    loadProducts();
+                } else { const err = await res.json(); alert("Erro: " + err.detail); }
+            } catch { alert("Erro."); }
+            finally { btn.innerText = originalText; btn.disabled = false; }
+        }
+
+        async function deleteProduct(id) {
+            if(!confirm("Apagar produto?")) return;
+            const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+            if(res.ok) loadProducts();
+        }
+
+        async function loadConfig() {
+            try {
+                const r = await fetch('/api/config');
+                if(r.ok) {
+                    const d = await r.json();
+                    if(d.whatsapp) document.getElementById('whatsapp').value = d.whatsapp;
+                    if(d.instagram) document.getElementById('instagram').value = d.instagram;
+                    if(d.address) document.getElementById('address').value = d.address;
+                }
+            } catch {}
+        }
+        async function saveConfig() {
+            const btn = document.querySelector('#config-form button');
+            btn.innerText="Salvando..."; btn.disabled=true;
+            try {
+                await fetch('/api/config', {
+                    method:'POST', 
+                    headers:{'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        whatsapp: document.getElementById('whatsapp').value,
+                        instagram: document.getElementById('instagram').value,
+                        address: document.getElementById('address').value
+                    })
+                });
+                alert("Salvo!");
+            } catch { alert("Erro."); }
+            finally { btn.innerText="Salvar Configurações"; btn.disabled=false; }
+        }
+    </script>
 </body>
 </html>
