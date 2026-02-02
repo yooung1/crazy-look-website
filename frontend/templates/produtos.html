@@ -3,342 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossa Coleção | Crazy Look Haitian</title>
+    <title>Coleção Completa | Crazy Look Haitian</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="/static/images/alfaiate_favicon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #FDFCFB; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .modal-scroll::-webkit-scrollbar { width: 8px; }
+        .modal-scroll::-webkit-scrollbar { width: 6px; }
         .modal-scroll::-webkit-scrollbar-thumb { background-color: #d6d3d1; border-radius: 4px; }
-        @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        .cart-anim { animation: slideInRight 0.3s ease-out forwards; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .cart-anim { animation: slideIn 0.3s ease-out forwards; }
     </style>
 </head>
 <body class="text-stone-800">
 
     <nav class="bg-white border-b border-stone-200 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2 group">
-                <i class="fas fa-chevron-left text-amber-600 group-hover:-translate-x-1 transition-transform"></i>
-                <span class="text-amber-600 font-serif font-bold text-xl uppercase tracking-tighter">Crazy Look Haitian</span>
+            <a href="/" class="flex items-center gap-2 group text-amber-600 hover:text-amber-700">
+                <i class="fas fa-arrow-left"></i> <span class="font-serif font-bold uppercase">Voltar para Home</span>
             </a>
-            <div class="text-sm text-stone-400 hidden sm:block">Coleção Completa</div>
+            <div class="relative cursor-pointer" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart text-2xl text-stone-800"></i>
+                <span id="cart-badge" class="absolute -top-1 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+            </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-12 px-6 space-y-16 min-h-screen">
+    <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-16">
         
         <section>
-            <div class="text-center mb-10">
-                <div class="inline-flex items-center gap-3 mb-2">
-                    <i class="fas fa-female text-3xl text-amber-600"></i>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">Moda Feminina</h2>
-                </div>
-                <div class="w-16 h-1 bg-amber-600 mx-auto rounded-full mb-4"></div>
-                <p class="text-stone-500">Elegância e sofisticação para todos os momentos.</p>
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="text-3xl font-serif font-bold text-stone-900">Coleção Feminina</h2>
+                <div class="flex-1 h-px bg-stone-200"></div>
             </div>
-            <div id="lista-feminina" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <p class="col-span-full text-center text-stone-400 py-10">Carregando coleção...</p>
+            <div id="grid-feminino" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <p class="text-stone-400 italic">Carregando...</p>
             </div>
         </section>
 
         <section>
-            <div class="text-center mb-10 pt-16 border-t border-stone-200">
-                <div class="inline-flex items-center gap-3 mb-2 mt-4">
-                    <i class="fas fa-male text-3xl text-stone-700"></i>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">Moda Masculina</h2>
-                </div>
-                <div class="w-16 h-1 bg-stone-700 mx-auto rounded-full mb-4"></div>
-                <p class="text-stone-500">Cortes precisos e estilo impecável.</p>
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="text-3xl font-serif font-bold text-stone-900">Coleção Masculina</h2>
+                <div class="flex-1 h-px bg-stone-200"></div>
             </div>
-            <div id="lista-masculina" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <p class="col-span-full text-center text-stone-400 py-10">Carregando coleção...</p>
+            <div id="grid-masculino" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <p class="text-stone-400 italic">Carregando...</p>
             </div>
         </section>
+
+        <section>
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="text-3xl font-serif font-bold text-stone-900">Coleção Unissex</h2>
+                <div class="flex-1 h-px bg-stone-200"></div>
+            </div>
+            <div id="grid-unissex" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <p class="text-stone-400 italic">Carregando...</p>
+            </div>
+        </section>
+
     </main>
-    
-    <footer class="bg-stone-900 text-white py-8 text-center mt-12">
-        <p class="text-stone-500 text-sm">© <span id="year"></span> CrazyLook Haitian. Todos os direitos reservados.</p>
-    </footer>
-    
-    <button onclick="toggleCart()" class="fixed bottom-28 right-8 bg-stone-900 text-white p-4 rounded-full shadow-2xl z-50 flex items-center gap-2 hover:scale-105 transition-all border-2 border-amber-600">
-        <i class="fas fa-shopping-bag text-xl"></i>
-        <span id="cart-count" class="bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center absolute -top-1 -right-1">0</span>
-    </button>
 
-    <a href="#" class="whatsapp-link fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-110 transition-all hover:bg-emerald-600 animate-bounce" target="_blank">
-        <i class="fab fa-whatsapp text-3xl"></i>
-    </a>
+    <div id="modal-produto" class="fixed inset-0 z-50 hidden bg-stone-900/90 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden flex flex-col md:flex-row relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white/80 p-2 rounded-full hover:bg-red-100 text-stone-500 hover:text-red-500"><i class="fas fa-times text-xl"></i></button>
 
-    <div id="product-modal" class="fixed inset-0 z-50 hidden bg-stone-900/90 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-5xl h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative animate-fade-in">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white/80 p-2 rounded-full hover:bg-red-100 text-stone-600 hover:text-red-600 transition-colors">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-
-            <div class="w-full md:w-2/3 bg-stone-100 p-6 flex flex-col modal-scroll overflow-y-auto justify-start items-center">
-                <img id="modal-main-img" src="" class="h-64 md:h-[400px] w-full object-contain rounded-lg shadow-sm mb-6 bg-white border border-stone-200">
-                <div id="modal-gallery" class="grid grid-cols-5 gap-3 w-full max-w-lg"></div>
+            <div class="w-full md:w-3/5 bg-stone-100 p-6 flex flex-col items-center justify-center">
+                <img id="modal-img" src="" class="h-64 md:h-96 object-contain shadow-md rounded-lg bg-white">
+                <div id="modal-thumbs" class="flex gap-2 mt-4 overflow-x-auto w-full justify-center p-2"></div>
             </div>
 
-            <div class="w-full md:w-1/3 p-8 flex flex-col bg-white border-l border-stone-200">
-                <span id="modal-category" class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2">Categoria</span>
-                <h2 id="modal-title" class="text-3xl font-serif font-bold text-stone-900 mb-4 leading-tight">Nome do Produto</h2>
-                <div class="flex-1 overflow-y-auto pr-2 custom-scroll">
-                    <p id="modal-desc" class="text-stone-600 text-sm leading-relaxed">Descrição...</p>
+            <div class="w-full md:w-2/5 p-8 bg-white flex flex-col">
+                <span id="modal-cat" class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2">Categoria</span>
+                <h2 id="modal-title" class="text-3xl font-serif font-bold text-stone-900 mb-4 leading-tight">Nome</h2>
+                <div class="flex-1 overflow-y-auto pr-2 custom-scroll text-stone-600 text-sm">
+                    <p>Peça exclusiva feita sob medida com os melhores tecidos do mercado. Acabamento de alta costura.</p>
                 </div>
-                <div class="mt-6 pt-6 border-t border-stone-100 bg-white">
-                    <p class="text-xs text-stone-400 mb-1 uppercase tracking-wider">Valor do Investimento</p>
-                    <div class="text-4xl font-bold text-stone-900 mb-6" id="modal-price">R$ 0,00</div>
-                    <button id="modal-btn-add" class="w-full bg-stone-900 hover:bg-stone-800 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
-                        <i class="fas fa-cart-plus text-xl"></i> Adicionar ao Carrinho
+                <div class="mt-6 pt-6 border-t border-stone-100">
+                    <div class="text-4xl font-bold text-stone-900 mb-4" id="modal-price">R$ 0,00</div>
+                    <button id="btn-add-cart" class="w-full bg-stone-900 hover:bg-stone-800 text-white py-4 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-3 transition">
+                        <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="cart-modal" class="hidden fixed inset-0 bg-black/50 z-[60] flex justify-end transition-all">
+    <div id="modal-carrinho" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50">
         <div class="bg-white w-full max-w-md h-full flex flex-col p-6 cart-anim shadow-2xl">
-            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
-                <h2 class="text-2xl font-bold text-stone-800 flex items-center gap-2"><i class="fas fa-shopping-bag text-amber-600"></i> Seu Carrinho</h2>
-                <button onclick="toggleCart()" class="text-stone-400 hover:text-red-500 transition-colors"><i class="fas fa-times text-xl"></i></button>
+            <div class="flex justify-between items-center mb-6 border-b border-stone-100 pb-4">
+                <h2 class="text-2xl font-bold text-stone-800"><i class="fas fa-shopping-cart text-amber-600"></i> Carrinho</h2>
+                <button onclick="toggleCart()" class="text-stone-400 hover:text-red-500"><i class="fas fa-times text-xl"></i></button>
             </div>
             
-            <div id="cart-items" class="flex-1 overflow-y-auto space-y-4 modal-scroll">
-                <p class="text-center text-stone-500 mt-10 italic">Seu carrinho está vazio.</p>
+            <div id="cart-list" class="flex-1 overflow-y-auto space-y-4 modal-scroll">
+                <p class="text-center text-stone-400 mt-10">Carrinho vazio.</p>
             </div>
 
-            <div class="mt-auto pt-6 border-t border-gray-200">
+            <div class="mt-auto pt-6 border-t border-stone-200">
                 <div class="flex justify-between items-end mb-4">
-                    <span class="text-sm font-bold text-stone-500 uppercase">Total Estimado</span>
+                    <span class="text-sm font-bold text-stone-500 uppercase">Total</span>
                     <span id="cart-total" class="text-3xl font-bold text-amber-600">R$ 0,00</span>
                 </div>
-                <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold text-lg shadow-lg transition-all flex justify-center items-center gap-2">
-                    <i class="fab fa-whatsapp text-2xl"></i> Finalizar Compra
+                <button onclick="checkout()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold text-lg shadow-lg flex justify-center items-center gap-2 transition">
+                    <i class="fab fa-whatsapp text-2xl"></i> Finalizar no WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-        let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-        let globalWhatsapp = "5511999999999"; 
+        let cart = JSON.parse(localStorage.getItem('crazyCart')) || [];
+        let globalPhone = "5511999999999"; 
 
         document.addEventListener("DOMContentLoaded", () => {
-            loadConfig();   // Busca Zap
-            loadProducts(); // Busca Produtos
-            updateCartCount();
+            loadConfig();
+            loadAllProducts();
+            updateCartUI();
         });
 
-        // --- 1. CONFIGURAÇÕES (ZAP) ---
+        // 1. CONFIGURAÇÕES
         async function loadConfig() {
             try {
                 const res = await fetch('/api/config');
                 if (res.ok) {
                     const data = await res.json();
-                    if (data.whatsapp) {
-                        globalWhatsapp = "55" + data.whatsapp.replace(/\D/g, ''); 
-                        const wppLinks = document.querySelectorAll('.whatsapp-link');
-                        wppLinks.forEach(link => {
-                            link.href = `https://wa.me/${globalWhatsapp}?text=Ol%C3%A1%2C%20estou%20vendo%20a%20cole%C3%A7%C3%A3o%20online.`;
-                        });
-                    }
+                    if(data.whatsapp) globalPhone = "55" + data.whatsapp.replace(/\D/g, '');
                 }
-            } catch (e) { console.error(e); }
+            } catch(e) {}
         }
 
-        // --- 2. CARREGAR PRODUTOS (SEM LIMITE) ---
-        async function loadProducts() {
+        // 2. CARREGAR PRODUTOS (COM UNISSEX)
+        async function loadAllProducts() {
             try {
                 const res = await fetch('/api/products');
                 const products = await res.json();
 
-                const femContainer = document.getElementById('lista-feminina');
-                const mascContainer = document.getElementById('lista-masculina');
+                const femGrid = document.getElementById('grid-feminino');
+                const mascGrid = document.getElementById('grid-masculino');
+                const uniGrid = document.getElementById('grid-unissex'); // Novo
                 
-                femContainer.innerHTML = '';
-                mascContainer.innerHTML = '';
+                femGrid.innerHTML = ""; mascGrid.innerHTML = ""; uniGrid.innerHTML = "";
 
-                if (products.length === 0) {
-                    femContainer.innerHTML = '<p class="col-span-full text-center text-stone-400">Nenhum produto cadastrado.</p>';
+                if(products.length === 0) {
+                    femGrid.innerHTML = "<p>Nenhum produto.</p>";
                     return;
                 }
 
-                products.forEach((prod) => {
-                    const img = prod.image || 'https://via.placeholder.com/300x400?text=Sem+Foto';
+                products.forEach(p => {
+                    const img = p.image || 'https://via.placeholder.com/300';
+                    const html = `
+                        <div onclick="openModal(${p.id})" class="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden cursor-pointer group hover:shadow-xl transition-all">
+                            <div class="h-80 overflow-hidden relative">
+                                <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                    <span class="bg-white text-stone-900 px-4 py-2 rounded-full font-bold text-sm">Ver Detalhes</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg text-stone-800 truncate">${p.name}</h3>
+                                <p class="text-amber-600 font-bold mt-1">R$ ${p.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    `;
                     
-                    const card = `
-                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-xl transition-all group flex flex-col h-full hover:border-amber-500 duration-300 cursor-pointer" onclick="openProductModal(${prod.id})">
-                        <div class="h-80 overflow-hidden relative">
-                            <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <span class="bg-white/90 text-stone-800 px-4 py-2 rounded-full font-bold text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                                    <i class="fas fa-eye mr-2"></i> Ver Detalhes
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <h3 class="font-bold text-lg text-stone-900 leading-tight mb-2 font-serif">${prod.name}</h3>
-                            <div class="mt-auto border-t border-stone-100 pt-4 flex justify-between items-center">
-                                <span class="text-amber-700 font-bold text-xl">R$ ${prod.price.toFixed(2)}</span>
-                                <span class="text-xs text-stone-400 uppercase font-bold tracking-wider">Ver mais</span>
-                            </div>
-                        </div>
-                    </div>`;
-
-                    if (prod.category === 'feminino') femContainer.innerHTML += card;
-                    else mascContainer.innerHTML += card;
+                    if(p.category === 'feminino') femGrid.innerHTML += html;
+                    else if(p.category === 'masculino') mascGrid.innerHTML += html;
+                    else uniGrid.innerHTML += html; // Unissex entra aqui
                 });
 
-            } catch (e) {
-                console.error("Erro produtos:", e);
-            }
+            } catch(e) { console.error(e); }
         }
 
-        // --- 3. MODAL E DETALHES ---
-        async function openProductModal(id) {
+        // 3. MODAL E DETALHES
+        async function openModal(id) {
             try {
                 const res = await fetch(`/api/products/${id}`);
                 const prod = await res.json();
                 
-                const modal = document.getElementById('product-modal');
                 const mainImg = prod.images.find(i => i.is_main) || prod.images[0];
                 
-                // Preencher Modal
-                document.getElementById('modal-main-img').src = mainImg ? mainImg.path : '';
-                document.getElementById('modal-category').innerText = prod.category === 'feminino' ? 'Moda Feminina' : 'Moda Masculina';
                 document.getElementById('modal-title').innerText = prod.name;
-                document.getElementById('modal-desc').innerText = "Produto exclusivo Crazy Look Haitian. Alta costura e acabamento premium.";
                 document.getElementById('modal-price').innerText = `R$ ${prod.price.toFixed(2)}`;
                 
-                // Galeria
-                const gallery = document.getElementById('modal-gallery');
-                gallery.innerHTML = '';
-                if (prod.images.length > 0) {
-                    prod.images.forEach(img => {
-                        const thumb = document.createElement('img');
-                        thumb.src = img.path;
-                        thumb.className = `w-full h-16 aspect-square object-cover rounded-md cursor-pointer hover:opacity-100 border-2 transition-all ${img.is_main ? 'border-amber-600' : 'border-transparent opacity-60'}`;
-                        thumb.onclick = () => {
-                            document.getElementById('modal-main-img').src = img.path;
-                            gallery.querySelectorAll('img').forEach(t => {
-                                t.classList.remove('border-amber-600', 'opacity-100');
-                                t.classList.add('border-transparent', 'opacity-60');
-                            });
-                            thumb.classList.add('border-amber-600', 'opacity-100');
-                            thumb.classList.remove('border-transparent', 'opacity-60');
-                        };
-                        gallery.appendChild(thumb);
-                    });
-                }
-
-                // Botão Adicionar
-                const btnAdd = document.getElementById('modal-btn-add');
-                const newBtn = btnAdd.cloneNode(true);
-                btnAdd.parentNode.replaceChild(newBtn, btnAdd);
+                let catText = 'Masculino';
+                if(prod.category === 'feminino') catText = 'Feminino';
+                if(prod.category === 'unisex') catText = 'Unissex';
+                document.getElementById('modal-cat').innerText = `Moda ${catText}`;
                 
-                newBtn.onclick = () => {
-                    addToCart({
-                        name: prod.name,
-                        price: prod.price,
-                        image: mainImg ? mainImg.path : ''
-                    });
-                };
+                document.getElementById('modal-img').src = mainImg ? mainImg.path : '';
 
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
+                // Galeria
+                const thumbs = document.getElementById('modal-thumbs');
+                thumbs.innerHTML = "";
+                prod.images.forEach(img => {
+                    const t = document.createElement('img');
+                    t.src = img.path;
+                    t.className = "w-16 h-16 object-cover rounded cursor-pointer border-2 hover:border-amber-500 border-transparent";
+                    t.onclick = () => document.getElementById('modal-img').src = img.path;
+                    thumbs.appendChild(t);
+                });
 
-            } catch (e) { console.error(e); }
+                // Configurar Botão Add
+                const btn = document.getElementById('btn-add-cart');
+                btn.onclick = () => addToCart(prod, mainImg ? mainImg.path : '');
+
+                document.getElementById('modal-produto').classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; 
+
+            } catch(e) { alert("Erro ao abrir produto."); }
         }
 
         function closeModal() {
-            document.getElementById('product-modal').classList.add('hidden');
+            document.getElementById('modal-produto').classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
 
-        // --- 4. CARRINHO ---
-        function addToCart(product) {
-            cart.push(product);
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
-            updateCartCount();
+        // 4. CARRINHO
+        function addToCart(prod, img) {
+            cart.push({ ...prod, image: img });
+            saveCart();
             closeModal();
             toggleCart();
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
-            updateCartCount();
-            renderCartItems();
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            saveCart();
         }
 
-        function updateCartCount() {
-            document.getElementById('cart-count').innerText = cart.length;
+        function saveCart() {
+            localStorage.setItem('crazyCart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            badge.innerText = cart.length;
+            badge.classList.toggle('hidden', cart.length === 0);
+
+            const list = document.getElementById('cart-list');
+            const totalEl = document.getElementById('cart-total');
+            list.innerHTML = "";
+            
+            let total = 0;
+
+            if(cart.length === 0) {
+                list.innerHTML = '<p class="text-center text-stone-400 mt-10">Carrinho vazio.</p>';
+            } else {
+                cart.forEach((item, idx) => {
+                    total += item.price;
+                    list.innerHTML += `
+                        <div class="flex gap-4 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                            <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-stone-800 text-sm truncate">${item.name}</h4>
+                                <p class="text-amber-600 font-bold text-sm">R$ ${item.price.toFixed(2)}</p>
+                            </div>
+                            <button onclick="removeFromCart(${idx})" class="text-stone-400 hover:text-red-500"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                });
+            }
+            totalEl.innerText = `R$ ${total.toFixed(2)}`;
         }
 
         function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                renderCartItems();
-            } else {
-                modal.classList.add('hidden');
-            }
+            const el = document.getElementById('modal-carrinho');
+            el.classList.toggle('hidden');
         }
 
-        function renderCartItems() {
-            const container = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
-            container.innerHTML = '';
-            
-            if (cart.length === 0) {
-                container.innerHTML = '<div class="text-center text-stone-400 py-10"><i class="fas fa-shopping-basket text-4xl mb-3"></i><p>Seu carrinho está vazio.</p></div>';
-                totalEl.innerText = 'R$ 0,00';
-                return;
-            }
+        // 5. CHECKOUT WHATSAPP
+        function checkout() {
+            if(cart.length === 0) return alert("Adicione itens ao carrinho!");
 
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                container.innerHTML += `
-                    <div class="flex gap-4 bg-stone-50 p-3 rounded-xl border border-stone-200">
-                        <img src="${item.image}" class="w-20 h-20 object-cover rounded-lg">
-                        <div class="flex-1">
-                            <h4 class="font-bold text-stone-800 text-sm line-clamp-1">${item.name}</h4>
-                            <p class="text-amber-600 font-bold text-sm">R$ ${item.price.toFixed(2)}</p>
-                        </div>
-                        <button onclick="removeFromCart(${index})" class="text-stone-400 hover:text-red-500 p-2"><i class="fas fa-trash"></i></button>
-                    </div>`;
-            });
-            totalEl.innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
-
-        function checkoutWhatsApp() {
-            if(cart.length === 0) return alert("Seu carrinho está vazio!");
-
-            let message = "*Olá! Gostaria de finalizar o seguinte pedido:*\n\n";
+            let msg = "*Olá! Gostaria de fazer o seguinte pedido no site:*\n\n";
             let total = 0;
 
-            cart.forEach(item => {
-                message += `▪️ ${item.name} - R$ ${item.price.toFixed(2)}\n`;
-                total += item.price;
+            cart.forEach(i => {
+                msg += `▪️ ${i.name} - R$ ${i.price.toFixed(2)}\n`;
+                total += i.price;
             });
 
-            const totalFormatted = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            message += `\n💰 *Total Estimado: ${totalFormatted}*`;
-            message += `\n\n_Gostaria de saber as formas de pagamento._`;
+            msg += `\n💰 *TOTAL: R$ ${total.toFixed(2)}*`;
+            msg += `\n\n_Aguardo instruções de pagamento._`;
 
-            window.open(`https://wa.me/${globalWhatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+            window.open(`https://wa.me/${globalPhone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
-
-        document.getElementById('product-modal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('product-modal')) closeModal();
-        });
     </script>
 </body>
 </html>
