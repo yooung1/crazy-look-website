@@ -24,6 +24,9 @@
     .modal-scroll::-webkit-scrollbar-thumb { background-color: #d6d3d1; border-radius: 4px; }
     @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
     .cart-anim { animation: slideInRight 0.3s ease-out forwards; }
+    /* Animação suave para o novo modal */
+    @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .modal-category-anim { animation: fadeInScale 0.2s ease-out forwards; }
   </style>
 </head>
 <body>
@@ -76,7 +79,11 @@
         <p class="text-xl text-stone-100 mb-10 font-light italic leading-relaxed">Onde a tradição da alfaiataria encontra a modernidade do estilo.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="#moda-feminina" class="text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 border-none text-center">Ver Coleção</a>
-          <a href="/produtos" class="text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 border-none text-center">Veja nossos produtos</a>
+          
+          <button onclick="openCategoryModal()" class="text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 border-none text-center">
+              Veja nossos produtos
+          </button>
+
         </div>
       </div>
     </section>
@@ -151,6 +158,7 @@
             <div class="h-96 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 group"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.5539755609363!2d-46.4752778!3d-23.5125977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce61073837905b%3A0xc3b0922899388339!2sR.%20Miguel%20Rachid%2C%20834%20-%20Vila%20Paranagua%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003808-130!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe></div>
         </div>
     </section>
+
   </main>
 
   <footer class="bg-stone-900 text-white py-12 px-6">
@@ -172,6 +180,32 @@
   <a href="#" class="whatsapp-link fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-110 transition-all hover:bg-emerald-600 animate-bounce" target="_blank">
     <i class="fab fa-whatsapp text-3xl"></i>
   </a>
+
+  <div id="modal-categorias" class="fixed inset-0 z-[70] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center relative modal-category-anim">
+          <button onclick="closeCategoryModal()" class="absolute top-4 right-4 text-stone-400 hover:text-red-500 transition-colors"><i class="fas fa-times text-xl"></i></button>
+          
+          <h3 class="text-2xl font-serif font-bold text-stone-900 mb-2">Escolha a Coleção</h3>
+          <p class="text-stone-500 mb-8 text-sm">Selecione uma categoria para visualizar os produtos exclusivos.</p>
+          
+          <div class="space-y-4">
+              <a href="/produtos#colecao-feminina" class="block w-full py-5 rounded-xl bg-stone-50 hover:bg-amber-50 text-stone-800 font-bold border border-stone-200 hover:border-amber-500 hover:scale-105 transition-all flex items-center justify-between px-6 shadow-sm">
+                  <span class="flex items-center gap-3"><i class="fas fa-female text-amber-600 text-xl w-6"></i> Moda Feminina</span> 
+                  <i class="fas fa-chevron-right text-stone-400"></i>
+              </a>
+              
+              <a href="/produtos#colecao-masculina" class="block w-full py-5 rounded-xl bg-stone-50 hover:bg-amber-50 text-stone-800 font-bold border border-stone-200 hover:border-amber-500 hover:scale-105 transition-all flex items-center justify-between px-6 shadow-sm">
+                  <span class="flex items-center gap-3"><i class="fas fa-male text-amber-600 text-xl w-6"></i> Moda Masculina</span> 
+                  <i class="fas fa-chevron-right text-stone-400"></i>
+              </a>
+              
+              <a href="/produtos#colecao-unissex" class="block w-full py-5 rounded-xl bg-stone-50 hover:bg-amber-50 text-stone-800 font-bold border border-stone-200 hover:border-amber-500 hover:scale-105 transition-all flex items-center justify-between px-6 shadow-sm">
+                  <span class="flex items-center gap-3"><i class="fas fa-venus-mars text-stone-700 text-xl w-6"></i> Moda Unissex</span> 
+                  <i class="fas fa-chevron-right text-stone-400"></i>
+              </a>
+          </div>
+      </div>
+  </div>
 
   <div id="product-modal" class="fixed inset-0 z-50 hidden bg-stone-900/90 backdrop-blur-sm flex items-center justify-center p-4">
      <div class="bg-white w-full max-w-5xl h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative animate-fade-in">
@@ -213,6 +247,19 @@
     let globalWhatsapp = "5511999999999";
     let globalInstagram = "#";
 
+    // FUNÇÕES DO NOVO MODAL
+    function openCategoryModal() {
+        document.getElementById('modal-categorias').classList.remove('hidden');
+    }
+    function closeCategoryModal() {
+        document.getElementById('modal-categorias').classList.add('hidden');
+    }
+    // Fechar ao clicar fora
+    document.getElementById('modal-categorias').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('modal-categorias')) closeCategoryModal();
+    });
+
+
     document.addEventListener("DOMContentLoaded", () => {
         loadSiteConfig();
         loadHomeProducts();
@@ -252,7 +299,6 @@
             const res = await fetch('/api/products');
             const products = await res.json();
 
-            // AGORA COM UNISSEX (LIMITADO A 4)
             const femProducts = products.filter(p => p.category === 'feminino').slice(0, 4);
             const mascProducts = products.filter(p => p.category === 'masculino').slice(0, 4);
             const uniProducts = products.filter(p => p.category === 'unisex').slice(0, 4);
@@ -301,7 +347,6 @@
             
             document.getElementById('modal-main-img').src = mainImg ? mainImg.path : '';
             
-            // Texto da Categoria
             let catText = 'Masculino';
             if(prod.category === 'feminino') catText = 'Feminino';
             if(prod.category === 'unisex') catText = 'Unissex';

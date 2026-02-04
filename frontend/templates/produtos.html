@@ -17,6 +17,9 @@
         .modal-scroll::-webkit-scrollbar-thumb { background-color: #d6d3d1; border-radius: 4px; }
         @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
         .cart-anim { animation: slideIn 0.3s ease-out forwards; }
+        
+        /* Aumentei a margem de rolagem para o menu fixo não tapar o título */
+        h2[id] { scroll-margin-top: 120px; } 
     </style>
 </head>
 <body class="text-stone-800">
@@ -40,7 +43,7 @@
                 <h2 id="colecao-feminina" class="text-3xl font-serif font-bold text-stone-900">Coleção Feminina</h2>
                 <div class="flex-1 h-px bg-stone-200"></div>
             </div>
-            <div id="grid-feminino" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="grid-feminino" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[100px]">
                 <p class="text-stone-400 italic">Carregando...</p>
             </div>
         </section>
@@ -50,7 +53,7 @@
                 <h2 id="colecao-masculina" class="text-3xl font-serif font-bold text-stone-900">Coleção Masculina</h2>
                 <div class="flex-1 h-px bg-stone-200"></div>
             </div>
-            <div id="grid-masculino" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="grid-masculino" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[100px]">
                 <p class="text-stone-400 italic">Carregando...</p>
             </div>
         </section>
@@ -60,7 +63,7 @@
                 <h2 id="colecao-unissex" class="text-3xl font-serif font-bold text-stone-900">Coleção Unissex</h2>
                 <div class="flex-1 h-px bg-stone-200"></div>
             </div>
-            <div id="grid-unissex" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="grid-unissex" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[100px]">
                 <p class="text-stone-400 italic">Carregando...</p>
             </div>
         </section>
@@ -121,11 +124,10 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             loadConfig();
-            loadAllProducts();
+            loadAllProducts(); // Aqui a mágica acontece
             updateCartUI();
         });
 
-        // 1. CONFIGURAÇÕES
         async function loadConfig() {
             try {
                 const res = await fetch('/api/config');
@@ -136,7 +138,6 @@
             } catch(e) {}
         }
 
-        // 2. CARREGAR PRODUTOS (COM UNISSEX)
         async function loadAllProducts() {
             try {
                 const res = await fetch('/api/products');
@@ -144,7 +145,7 @@
 
                 const femGrid = document.getElementById('grid-feminino');
                 const mascGrid = document.getElementById('grid-masculino');
-                const uniGrid = document.getElementById('grid-unissex'); // Novo
+                const uniGrid = document.getElementById('grid-unissex');
                 
                 femGrid.innerHTML = ""; mascGrid.innerHTML = ""; uniGrid.innerHTML = "";
 
@@ -155,10 +156,11 @@
 
                 products.forEach(p => {
                     const img = p.image || 'https://via.placeholder.com/300';
+                    // Nota: A classe h-80 na div da imagem ajuda a reservar espaço antes da imagem carregar
                     const html = `
                         <div onclick="openModal(${p.id})" class="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden cursor-pointer group hover:shadow-xl transition-all">
-                            <div class="h-80 overflow-hidden relative">
-                                <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="h-80 w-full bg-gray-100 overflow-hidden relative">
+                                <img src="${img}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                                 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
                                     <span class="bg-white text-stone-900 px-4 py-2 rounded-full font-bold text-sm">Ver Detalhes</span>
                                 </div>
@@ -172,13 +174,26 @@
                     
                     if(p.category === 'feminino') femGrid.innerHTML += html;
                     else if(p.category === 'masculino') mascGrid.innerHTML += html;
-                    else uniGrid.innerHTML += html; // Unissex entra aqui
+                    else uniGrid.innerHTML += html;
                 });
+
+                // CORREÇÃO DE ROLAGEM AQUI:
+                // Verifica se tem um #ID na URL (ex: #colecao-feminina)
+                if (window.location.hash) {
+                    const id = window.location.hash.substring(1); // pega o id sem o #
+                    const element = document.getElementById(id);
+                    
+                    if (element) {
+                        // Dá um pequeno atraso de 100ms para garantir que o HTML foi injetado
+                        setTimeout(() => {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300);
+                    }
+                }
 
             } catch(e) { console.error(e); }
         }
 
-        // 3. MODAL E DETALHES
         async function openModal(id) {
             try {
                 const res = await fetch(`/api/products/${id}`);
@@ -196,7 +211,6 @@
                 
                 document.getElementById('modal-img').src = mainImg ? mainImg.path : '';
 
-                // Galeria
                 const thumbs = document.getElementById('modal-thumbs');
                 thumbs.innerHTML = "";
                 prod.images.forEach(img => {
@@ -207,7 +221,6 @@
                     thumbs.appendChild(t);
                 });
 
-                // Configurar Botão Add
                 const btn = document.getElementById('btn-add-cart');
                 btn.onclick = () => addToCart(prod, mainImg ? mainImg.path : '');
 
@@ -222,7 +235,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // 4. CARRINHO
         function addToCart(prod, img) {
             cart.push({ ...prod, image: img });
             saveCart();
@@ -276,7 +288,6 @@
             el.classList.toggle('hidden');
         }
 
-        // 5. CHECKOUT WHATSAPP
         function checkout() {
             if(cart.length === 0) return alert("Adicione itens ao carrinho!");
 
