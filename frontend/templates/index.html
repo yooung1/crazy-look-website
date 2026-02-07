@@ -24,7 +24,6 @@
     .modal-scroll::-webkit-scrollbar-thumb { background-color: #d6d3d1; border-radius: 4px; }
     @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
     .cart-anim { animation: slideInRight 0.3s ease-out forwards; }
-    /* Animação suave para o novo modal */
     @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     .modal-category-anim { animation: fadeInScale 0.2s ease-out forwards; }
   </style>
@@ -83,7 +82,6 @@
           <button onclick="openCategoryModal()" class="text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 border-none text-center">
               Veja nossos produtos
           </button>
-
         </div>
       </div>
     </section>
@@ -175,7 +173,7 @@
 
   <button onclick="toggleCart()" class="fixed bottom-28 right-8 bg-stone-900 text-white p-4 rounded-full shadow-2xl z-50 flex items-center gap-2 hover:scale-105 transition-all border-2 border-amber-600">
     <i class="fas fa-shopping-cart text-xl"></i>
-    <span id="cart-count" class="bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center absolute -top-1 -right-1">0</span>
+    <span id="cart-count" class="bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center absolute -top-1 -right-1 hidden">0</span>
   </button>
   <a href="#" class="whatsapp-link fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-110 transition-all hover:bg-emerald-600 animate-bounce" target="_blank">
     <i class="fab fa-whatsapp text-3xl"></i>
@@ -243,24 +241,56 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    let cart = [];
+    
+    // RECUPERA O CARRINHO DO STORAGE
+    let cart = JSON.parse(localStorage.getItem('crazyCart')) || [];
+    
     let globalWhatsapp = "5511999999999";
     let globalInstagram = "#";
 
-    // FUNÇÕES DO NOVO MODAL
+    // FUNÇÕES DO MODAL DE CATEGORIAS
     function openCategoryModal() {
         document.getElementById('modal-categorias').classList.remove('hidden');
     }
     function closeCategoryModal() {
         document.getElementById('modal-categorias').classList.add('hidden');
     }
-    // Fechar ao clicar fora
     document.getElementById('modal-categorias').addEventListener('click', (e) => {
         if (e.target === document.getElementById('modal-categorias')) closeCategoryModal();
     });
 
+    // FUNÇÃO PARA SALVAR O CARRINHO NO NAVEGADOR
+    function saveCart() {
+        localStorage.setItem('crazyCart', JSON.stringify(cart));
+        updateCartCount();
+        renderCartItems();
+    }
+
+    // --- FUNÇÃO DE ADIÇÃO DIRETA AO CARRINHO (Botão flutuante) ---
+    function addToCartDirect(event, name, price, image) {
+        event.stopPropagation(); // Impede abrir o modal grande
+        
+        cart.push({ name, price, image });
+        saveCart(); // SALVA NO STORAGE
+        
+        // Efeito visual no botão
+        const btn = event.currentTarget;
+        const originalContent = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="fas fa-check text-white"></i>';
+        btn.classList.add('bg-green-500', 'border-green-500');
+        btn.classList.remove('bg-white', 'text-stone-800');
+        
+        setTimeout(() => {
+            btn.innerHTML = originalContent;
+            btn.classList.remove('bg-green-500', 'border-green-500');
+            btn.classList.add('bg-white', 'text-stone-800');
+            toggleCart(); // Opcional: abre o carrinho para mostrar
+        }, 800);
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
+        updateCartCount(); // Carrega o numero da bolinha vermelha
         loadSiteConfig();
         loadHomeProducts();
         
@@ -317,14 +347,24 @@
 
         container.innerHTML = list.map(prod => {
             const img = prod.image || 'https://via.placeholder.com/300x400?text=Sem+Foto';
+            const safeName = prod.name.replace(/'/g, "\\'"); // Proteção para nomes com aspas
+            
             return `
-            <div class="product-card rounded-2xl overflow-hidden shadow-sm flex flex-col h-full cursor-pointer group" onclick="openProductModal(${prod.id})">
+            <div class="product-card rounded-2xl overflow-hidden shadow-sm flex flex-col h-full cursor-pointer group relative" onclick="openProductModal(${prod.id})">
                 <div class="relative h-80 overflow-hidden">
                     <img src="${img}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <button class="bg-white/90 text-stone-800 px-6 py-3 rounded-full font-bold text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                    
+                    <button 
+                        onclick="addToCartDirect(event, '${safeName}', ${prod.price}, '${img}')"
+                        class="absolute bottom-3 right-3 w-12 h-12 rounded-full bg-white text-stone-800 shadow-xl z-20 hover:bg-amber-600 hover:text-white transition-all transform hover:scale-110 flex items-center justify-center border border-stone-100"
+                        title="Adicionar ao Carrinho">
+                        <i class="fas fa-cart-plus text-lg"></i>
+                    </button>
+
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                        <span class="bg-white/90 text-stone-800 px-6 py-3 rounded-full font-bold text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
                             <i class="fas fa-eye mr-2"></i> Ver Detalhes
-                        </button>
+                        </span>
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-1">
@@ -394,21 +434,28 @@
         document.body.style.overflow = 'auto';
     }
 
+    // ADICIONA PELO MODAL E SALVA
     function addToCart(product) {
         cart.push(product);
-        updateCartCount();
+        saveCart();
         closeModal();
         toggleCart();
     }
 
+    // REMOVE E SALVA
     function removeFromCart(index) {
         cart.splice(index, 1);
-        updateCartCount();
-        renderCartItems();
+        saveCart();
     }
 
     function updateCartCount() {
-        document.getElementById('cart-count').innerText = cart.length;
+        const badge = document.getElementById('cart-count');
+        badge.innerText = cart.length;
+        if(cart.length === 0) {
+             badge.classList.add('hidden');
+        } else {
+             badge.classList.remove('hidden');
+        }
     }
 
     function toggleCart() {
