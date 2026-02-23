@@ -109,25 +109,25 @@
     </section>
 
     <section id="feminino" class="py-20">
-      <div class="container mx-auto px-6">
+      <div class="container mx-auto px-4 md:px-6">
         <div class="text-center mb-16" id="moda-feminina"><h2 class="text-4xl font-bold mb-2">Moda Feminina</h2><div class="w-24 h-1 bg-amber-600 mx-auto"></div></div>
-        <div id="home-feminino-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+        <div id="home-feminino-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8"></div>
         <div class="text-center mt-12"><a href="/produtos#colecao-feminina" class="inline-block border-b-2 border-amber-600 text-amber-700 font-bold hover:text-amber-800 transition-colors pb-1 uppercase tracking-wider text-sm">Ver Mais <i class="fas fa-arrow-right ml-2"></i></a></div>
       </div>
     </section>
 
     <section id="masculino" class="py-20 bg-stone-50">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-4 md:px-6">
           <div class="text-center mb-16"><h2 class="text-4xl font-bold mb-2">Moda Masculina</h2><div class="w-24 h-1 bg-amber-600 mx-auto"></div></div>
-          <div id="home-masculino-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+          <div id="home-masculino-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8"></div>
           <div class="text-center mt-12"><a href="/produtos#colecao-masculina" class="inline-block border-b-2 border-amber-600 text-amber-700 font-bold hover:text-amber-800 transition-colors pb-1 uppercase tracking-wider text-sm">Ver Mais <i class="fas fa-arrow-right ml-2"></i></a></div>
         </div>
     </section>
 
     <section id="unissex" class="py-20">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-4 md:px-6">
           <div class="text-center mb-16"><h2 class="text-4xl font-bold mb-2">Moda Unissex</h2><div class="w-24 h-1 bg-stone-700 mx-auto"></div></div>
-          <div id="home-unissex-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+          <div id="home-unissex-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8"></div>
           <div class="text-center mt-12"><a href="/produtos#colecao-unissex" class="inline-block border-b-2 border-stone-700 text-stone-700 font-bold hover:text-black transition-colors pb-1 uppercase tracking-wider text-sm">Ver Mais <i class="fas fa-arrow-right ml-2"></i></a></div>
         </div>
     </section>
@@ -349,29 +349,30 @@
             const img = prod.image || 'https://via.placeholder.com/300x400?text=Sem+Foto';
             const safeName = prod.name.replace(/'/g, "\\'"); // Proteção para nomes com aspas
             
+            // Aqui mantemos a estrutura original que você pediu, mas com tamanhos adaptados pro celular
             return `
             <div class="product-card rounded-2xl overflow-hidden shadow-sm flex flex-col h-full cursor-pointer group relative" onclick="openProductModal(${prod.id})">
-                <div class="relative h-80 overflow-hidden">
+                <div class="relative h-48 md:h-80 overflow-hidden">
                     <img src="${img}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     
                     <button 
                         onclick="addToCartDirect(event, '${safeName}', ${prod.price}, '${img}')"
-                        class="absolute bottom-3 right-3 w-12 h-12 rounded-full bg-white text-stone-800 shadow-xl z-20 hover:bg-amber-600 hover:text-white transition-all transform hover:scale-110 flex items-center justify-center border border-stone-100"
+                        class="absolute bottom-2 right-2 md:bottom-3 md:right-3 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white text-stone-800 shadow-xl z-20 hover:bg-amber-600 hover:text-white transition-all transform hover:scale-110 flex items-center justify-center border border-stone-100"
                         title="Adicionar ao Carrinho">
-                        <i class="fas fa-cart-plus text-lg"></i>
+                        <i class="fas fa-cart-plus text-sm md:text-lg"></i>
                     </button>
 
                     <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                        <span class="bg-white/90 text-stone-800 px-6 py-3 rounded-full font-bold text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                        <span class="bg-white/90 text-stone-800 px-3 py-2 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
                             <i class="fas fa-eye mr-2"></i> Ver Detalhes
                         </span>
                     </div>
                 </div>
-                <div class="p-6 flex flex-col flex-1">
-                    <h3 class="font-bold text-lg mb-2 text-stone-800 leading-tight">${prod.name}</h3>
+                <div class="p-3 md:p-6 flex flex-col flex-1">
+                    <h3 class="font-bold text-sm md:text-lg mb-1 md:mb-2 text-stone-800 leading-tight line-clamp-2">${prod.name}</h3>
                     <div class="mt-auto flex justify-between items-center">
-                        <span class="text-xs text-stone-400">A partir de</span>
-                        <span class="text-xl font-bold text-amber-700">R$ ${prod.price.toFixed(2)}</span>
+                        <span class="text-[10px] md:text-xs text-stone-400 leading-tight">A partir de</span>
+                        <span class="text-base md:text-xl font-bold text-amber-700">R$ ${prod.price.toFixed(2)}</span>
                     </div>
                 </div>
             </div>`;
